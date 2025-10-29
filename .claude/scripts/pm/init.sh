@@ -22,6 +22,49 @@ echo "🚀 Initializing Claude Code PM System"
 echo "======================================"
 echo ""
 
+# Detect package manager
+detect_package_manager() {
+  if command -v brew &> /dev/null; then
+    echo "brew"
+  elif command -v apt-get &> /dev/null; then
+    echo "apt"
+  elif command -v dnf &> /dev/null; then
+    echo "dnf"
+  elif command -v yum &> /dev/null; then
+    echo "yum"
+  else
+    echo "unknown"
+  fi
+}
+
+# Install package based on detected package manager
+install_package() {
+  local package_name="$1"
+  local brew_name="${2:-$package_name}"
+  local apt_name="${3:-$package_name}"
+  local dnf_name="${4:-$package_name}"
+
+  local pm=$(detect_package_manager)
+
+  case "$pm" in
+    brew)
+      brew install "$brew_name"
+      ;;
+    apt)
+      sudo apt-get update && sudo apt-get install -y "$apt_name"
+      ;;
+    dnf)
+      sudo dnf install -y "$dnf_name"
+      ;;
+    yum)
+      sudo yum install -y "$dnf_name"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 # Check for required tools
 echo "🔍 Checking dependencies..."
 
@@ -32,12 +75,59 @@ else
   echo "  ❌ GitHub CLI (gh) not found"
   echo ""
   echo "  Installing gh..."
-  if command -v brew &> /dev/null; then
-    brew install gh
-  elif command -v apt-get &> /dev/null; then
-    sudo apt-get update && sudo apt-get install gh
-  else
+  if ! install_package "gh" "gh" "gh" "gh"; then
     echo "  Please install GitHub CLI manually: https://cli.github.com/"
+    exit 1
+  fi
+fi
+
+# Check jq
+if command -v jq &> /dev/null; then
+  echo "  ✅ jq installed"
+else
+  echo "  ❌ jq not found"
+  echo ""
+  echo "  Installing jq..."
+  if ! install_package "jq" "jq" "jq" "jq"; then
+    echo "  Please install jq manually: https://jqlang.github.io/jq/"
+    exit 1
+  fi
+fi
+
+# Check sqlite3
+if command -v sqlite3 &> /dev/null; then
+  echo "  ✅ SQLite installed"
+else
+  echo "  ❌ SQLite not found"
+  echo ""
+  echo "  Installing sqlite3..."
+  if ! install_package "sqlite" "sqlite" "sqlite3" "sqlite"; then
+    echo "  Please install SQLite manually: https://sqlite.org/"
+    exit 1
+  fi
+fi
+
+# Check duckdb
+if command -v duckdb &> /dev/null; then
+  echo "  ✅ DuckDB installed"
+else
+  echo "  ❌ DuckDB not found"
+  echo ""
+  echo "  Installing duckdb..."
+
+  local pm=$(detect_package_manager)
+
+  if [[ "$pm" == "brew" ]]; then
+    brew install duckdb
+  elif [[ "$pm" == "apt" ]] || [[ "$pm" == "dnf" ]] || [[ "$pm" == "yum" ]]; then
+    # DuckDB requires manual install on Linux
+    echo "  Installing DuckDB from GitHub releases..."
+    wget -q https://github.com/duckdb/duckdb/releases/latest/download/duckdb_cli-linux-amd64.zip
+    unzip -q duckdb_cli-linux-amd64.zip
+    sudo mv duckdb /usr/local/bin/
+    rm duckdb_cli-linux-amd64.zip
+  else
+    echo "  Please install DuckDB manually: https://duckdb.org/docs/installation/"
     exit 1
   fi
 fi
@@ -71,7 +161,19 @@ mkdir -p .claude/epics
 mkdir -p .claude/rules
 mkdir -p .claude/agents
 mkdir -p .claude/scripts/pm
+mkdir -p db
 echo "  ✅ Directories created"
+
+# Initialize database
+echo ""
+echo "🗄️  Initializing database..."
+if [ -f "db/init.sh" ]; then
+  bash db/init.sh
+  echo "  ✅ Database initialized"
+else
+  echo "  ⚠️  Database init script not found (db/init.sh)"
+  echo "  Database features will not be available"
+fi
 
 # Copy scripts if in main repo
 if [ -d "scripts/pm" ] && [ ! "$(pwd)" = *"/.claude"* ]; then
