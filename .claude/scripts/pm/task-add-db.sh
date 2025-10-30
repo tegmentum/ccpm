@@ -24,7 +24,9 @@ dependencies=""
 
 # Show usage
 show_usage() {
-    echo "Usage: pm task-add <epic-name> <task-name> [options]"
+    echo "Usage: pm task-add [epic-name] <task-name> [options]"
+    echo ""
+    echo "If no epic name provided, adds to 'backlog' epic (auto-created if needed)"
     echo ""
     echo "Options:"
     echo "  --description <text>     Task description"
@@ -33,20 +35,35 @@ show_usage() {
     echo "  --sync                   Create GitHub issue immediately"
     echo ""
     echo "Examples:"
-    echo "  pm task-add my-epic 'Fix validation bug'"
+    echo "  pm task-add 'Fix validation bug'                      # Adds to backlog"
+    echo "  pm task-add my-epic 'Fix validation bug'              # Adds to my-epic"
     echo "  pm task-add my-epic 'Add tests' --estimate 4 --depends-on 3"
-    echo "  pm task-add my-epic 'Deploy feature' --depends-on 1,2,3 --sync"
+    echo "  pm task-add 'Deploy feature' --sync                   # Backlog + GitHub"
 }
 
 # Parse command line
-if [[ $# -lt 2 ]]; then
+if [[ $# -lt 1 ]]; then
     show_usage
     exit 1
 fi
 
-epic_name="$1"
-task_name="$2"
-shift 2
+# Detect if first arg is epic name or task name
+# If first arg starts with - or has spaces/special chars, it's likely a task name
+if [[ "$1" == --* ]]; then
+    # Started with flag, missing task name
+    show_usage
+    exit 1
+elif [[ $# -eq 1 ]] || [[ "$2" == --* ]]; then
+    # Only one arg, or second arg is a flag -> first arg is task name, use backlog
+    epic_name="backlog"
+    task_name="$1"
+    shift 1
+else
+    # Two args before flags -> first is epic, second is task
+    epic_name="$1"
+    task_name="$2"
+    shift 2
+fi
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -85,18 +102,58 @@ echo ""
 # Get epic from database
 epic_data=$(get_epic "$epic_name" "json")
 
+# Auto-create backlog epic if it doesn't exist
 if [[ -z "$epic_data" ]] || [[ "$epic_data" == "[]" ]]; then
-    echo "❌ Epic not found: $epic_name"
-    echo ""
-    echo "Available epics:"
-    "$QUERY_SCRIPT" "
-        SELECT name FROM ccpm.epics
-        WHERE deleted_at IS NULL
-        ORDER BY created_at DESC
-    " "csv" | tail -n +2 | while read -r name; do
-        echo "  • $name"
-    done
-    exit 1
+    if [[ "$epic_name" == "backlog" ]]; then
+        echo "Creating 'backlog' epic for miscellaneous tasks..."
+
+        # Check if 'backlog' PRD exists, create if not
+        prd_id=$("$QUERY_SCRIPT" "
+            SELECT id FROM ccpm.prds
+            WHERE name = 'backlog'
+                AND deleted_at IS NULL
+        " "json" | jq -r '.[0].id // "null"')
+
+        if [[ "$prd_id" == "null" ]]; then
+            "$QUERY_SCRIPT" "
+                INSERT INTO ccpm.prds (name, description, status, created_at)
+                VALUES ('backlog', 'Miscellaneous tasks and issues', 'active', datetime('now'))
+            " > /dev/null
+            prd_id=$("$QUERY_SCRIPT" "SELECT id FROM ccpm.prds WHERE name = 'backlog'" "json" | jq -r '.[0].id')
+        fi
+
+        # Create backlog epic
+        "$QUERY_SCRIPT" "
+            INSERT INTO ccpm.epics (
+                prd_id, name, content, status, progress, created_at
+            ) VALUES (
+                $prd_id,
+                'backlog',
+                'Backlog for miscellaneous tasks, bug fixes, and issues that don''t fit into other epics.',
+                'active',
+                0,
+                datetime('now')
+            )
+        " > /dev/null
+
+        echo "  ✅ Created 'backlog' epic"
+        echo ""
+
+        # Re-fetch epic data
+        epic_data=$(get_epic "$epic_name" "json")
+    else
+        echo "❌ Epic not found: $epic_name"
+        echo ""
+        echo "Available epics:"
+        "$QUERY_SCRIPT" "
+            SELECT name FROM ccpm.epics
+            WHERE deleted_at IS NULL
+            ORDER BY created_at DESC
+        " "csv" | tail -n +2 | while read -r name; do
+            echo "  • $name"
+        done
+        exit 1
+    fi
 fi
 
 epic_id=$(echo "$epic_data" | jq -r '.[0].id')
