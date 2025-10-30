@@ -2,4 +2,4 @@
 allowed-tools: Bash
 ---
 
-Run: `python3 .claude/scripts/pm/router.py task-add $ARGUMENTS`
+Run: `python3 $PLUGIN_DIR/lib/python/scripts/router.py task-add $ARGUMENTS`

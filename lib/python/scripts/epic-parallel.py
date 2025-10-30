@@ -15,7 +15,7 @@ import subprocess
 from pathlib import Path
 
 # Add db directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import (
     get_epic, get_ready_tasks, get_db,

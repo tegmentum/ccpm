@@ -2,4 +2,4 @@
 allowed-tools: Bash
 ---
 
-Run: `python3 .claude/scripts/pm/router.py prd-list $ARGUMENTS`
+Run: `python3 $PLUGIN_DIR/lib/python/scripts/router.py prd-list $ARGUMENTS`

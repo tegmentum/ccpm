@@ -14,7 +14,7 @@ import subprocess
 from pathlib import Path
 
 # Add db directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import (
     get_epic, get_db, update_epic, calculate_epic_progress,
@@ -177,8 +177,8 @@ def main():
         progress=new_progress
     )
 
-    print(f"Progress: {old_progress}% ’ {new_progress}%")
-    print(f"Status: {old_status} ’ {new_status}")
+    print(f"Progress: {old_progress}%  {new_progress}%")
+    print(f"Status: {old_status}  {new_status}")
     print()
 
     # Update GitHub issue if it exists
@@ -193,7 +193,7 @@ def main():
     print()
 
     if new_status == "closed":
-        print("<‰ Epic complete! All tasks done.")
+        print("< Epic complete! All tasks done.")
         print()
         print("Next steps:")
         print(f"   Close epic: pm epic-close {epic_name}")
@@ -204,7 +204,7 @@ def main():
         print(f"   View progress: pm epic-show {epic_name}")
         print("   See next tasks: pm next")
     else:
-        print("=Ë Ready to start work")
+        print("= Ready to start work")
         print()
         print("Next steps:")
         print("   See next tasks: pm next")

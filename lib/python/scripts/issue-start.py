@@ -18,7 +18,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Add db directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import (
     get_task_by_github_issue, get_epic_by_id, get_db,
