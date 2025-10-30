@@ -465,6 +465,21 @@ Watch as structured planning transforms into shipped code.
 - Worktrees provide clean git isolation for parallel work
 - GitHub Projects can be added separately for visualization
 
+### Command Router Pattern
+CCPM uses a router pattern for efficient command execution:
+- **33 deterministic commands** route through `router.py`
+- **6 LLM-based commands** retain detailed instructions (prd-new, prd-edit, epic-decompose, etc.)
+- **63.5% token reduction** - command files average 93 bytes vs 256 bytes
+- **Centralized registry** - all command mappings in single location
+- **Easy extensibility** - add new commands by updating COMMAND_MAP
+
+**Token Savings:**
+- Per command: 41 tokens saved (64% reduction)
+- Weekly usage (conservative): 3,075 tokens saved
+- Weekly usage (power user): 12,300 tokens saved
+
+For implementation details, see `docs/investigations/router_implementation_complete.md`
+
 ---
 
 ## Support This Project
