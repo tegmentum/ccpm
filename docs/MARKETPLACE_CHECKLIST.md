@@ -79,7 +79,7 @@
 - [x] Name: "ccpm"
 - [x] Version: "1.0.0"
 - [x] Description
-- [x] Author: "automaze.io"
+- [x] Author: "tegmentum.ai"
 - [x] Homepage URL
 - [x] Repository URL
 - [x] License: "MIT"
@@ -113,7 +113,7 @@
 - [x] License specified in plugin.json
 
 ### Attribution ✅
-- [x] Author credited (automaze.io)
+- [x] Author credited (tegmentum.ai)
 - [x] Copyright notices in place
 - [x] Third-party dependencies listed (PyGithub)
 

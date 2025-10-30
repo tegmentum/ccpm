@@ -270,7 +270,7 @@ Run anytime with:
 ### Installation Command
 Once published, users can install with:
 ```bash
-/plugin install @automaze/ccpm
+/plugin install @tegmentum/ccpm
 ```
 
 Or locally during development:

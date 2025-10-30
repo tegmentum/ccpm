@@ -110,10 +110,10 @@ ccpm-plugin/
 
 ```bash
 # From GitHub
-/plugin install @automaze/ccpm
+/plugin install @tegmentum/ccpm
 
 # From Marketplace
-/plugin marketplace add automaze
+/plugin marketplace add tegmentum
 /plugin install ccpm
 ```
 
@@ -194,7 +194,7 @@ CCPM now works in TWO modes:
 ### Repository Mode (Original)
 ```bash
 # Clone and use directly
-git clone https://github.com/automazeio/ccpm
+git clone https://github.com/tegmentum/ccpm
 cd ccpm
 /pm:status  # Commands run from .claude/scripts/pm/
 ```

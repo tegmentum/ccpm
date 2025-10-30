@@ -1,10 +1,10 @@
 {
-  "name": "automaze-marketplace",
-  "description": "Official Automaze plugin marketplace for Claude Code",
+  "name": "tegmentum-marketplace",
+  "description": "Official Tegmentum plugin marketplace for Claude Code",
   "owner": {
-    "name": "Automaze",
-    "url": "https://automaze.io",
-    "email": "support@automaze.io"
+    "name": "Tegmentum",
+    "url": "https://tegmentum.ai",
+    "email": "zachary.whitley@tegmentum.ai"
   },
   "plugins": [
     {
@@ -67,9 +67,9 @@
         "troubleshooting": "PLUGIN.md#troubleshooting"
       },
       "support": {
-        "issues": "https://github.com/automazeio/ccpm/issues",
-        "discussions": "https://github.com/automazeio/ccpm/discussions",
-        "email": "support@automaze.io"
+        "issues": "https://github.com/tegmentum/ccpm/issues",
+        "discussions": "https://github.com/tegmentum/ccpm/discussions",
+        "email": "zachary.whitley@tegmentum.ai"
       },
       "changelog": {
         "1.0.0": {

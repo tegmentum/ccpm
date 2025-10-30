@@ -14,7 +14,7 @@ echo "┌───────────────────────�
 echo "│ Claude Code Project Management  │"
 echo "│ by https://x.com/aroussi        │"
 echo "└─────────────────────────────────┘"
-echo "https://github.com/automazeio/ccpm"
+echo "https://github.com/tegmentum/ccpm"
 echo ""
 echo ""
 
@@ -215,7 +215,7 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     echo "  ✅ Remote configured: $remote_url"
     
     # Check if remote is the CCPM template repository
-    if [[ "$remote_url" == *"automazeio/ccpm"* ]] || [[ "$remote_url" == *"automazeio/ccpm.git"* ]]; then
+    if [[ "$remote_url" == *"tegmentum/ccpm"* ]] || [[ "$remote_url" == *"tegmentum/ccpm.git"* ]]; then
       echo ""
       echo "  ⚠️ WARNING: Your remote origin points to the CCPM template repository!"
       echo "  This means any issues you create will go to the template repo, not your project."

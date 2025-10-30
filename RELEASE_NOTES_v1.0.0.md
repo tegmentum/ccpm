@@ -67,7 +67,7 @@ CCPM (Claude Code Project Management) transforms how you build software with Cla
 
 ### From GitHub
 ```bash
-/plugin install @automaze/ccpm
+/plugin install @tegmentum/ccpm
 ```
 
 ### From Local Directory
@@ -292,7 +292,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ## 🙏 Credits
 
-Developed by [Automaze](https://automaze.io) for developers who ship.
+Developed by [Tegmentum](https://tegmentum.ai) for developers who ship.
 
 ### Built With
 - **Claude Code**: Anthropic's official CLI
@@ -309,13 +309,13 @@ Developed by [Automaze](https://automaze.io) for developers who ship.
 - **Help Command**: `/pm:help`
 
 ### Community
-- **GitHub**: https://github.com/automazeio/ccpm
-- **Issues**: https://github.com/automazeio/ccpm/issues
-- **Discussions**: https://github.com/automazeio/ccpm/discussions
+- **GitHub**: https://github.com/tegmentum/ccpm
+- **Issues**: https://github.com/tegmentum/ccpm/issues
+- **Discussions**: https://github.com/tegmentum/ccpm/discussions
 
 ### Contact
-- **Email**: support@automaze.io
-- **Website**: https://automaze.io
+- **Email**: support@tegmentum.ai
+- **Website**: https://tegmentum.ai
 
 ## 🚢 Release Assets
 
@@ -335,4 +335,4 @@ Available in release artifacts section.
 
 Ship faster with spec-driven development, GitHub Issues, Git worktrees, and parallel AI agents.
 
-⭐ Star us on GitHub: https://github.com/automazeio/ccpm
+⭐ Star us on GitHub: https://github.com/tegmentum/ccpm

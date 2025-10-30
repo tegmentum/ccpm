@@ -49,5 +49,5 @@ See [PLUGIN.md](./PLUGIN.md) for complete documentation.
 
 ## Support
 
-- **GitHub**: https://github.com/automazeio/ccpm
-- **Website**: https://automaze.io
+- **GitHub**: https://github.com/tegmentum/ccpm
+- **Website**: https://tegmentum.ai

@@ -201,7 +201,7 @@ pm epic-decompose-ai user-auth-backend manual # Manual mode
 ### New Project Setup
 ```bash
 # Clone CCPM
-git clone https://github.com/automazeio/ccpm.git .
+git clone https://github.com/tegmentum/ccpm.git .
 rm -rf .git
 
 # Initialize (installs dependencies)

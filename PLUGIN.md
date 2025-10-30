@@ -11,13 +11,13 @@
 ### Option 2: Install from GitHub (when published)
 
 ```bash
-/plugin install @automaze/ccpm
+/plugin install @tegmentum/ccpm
 ```
 
 ### Option 3: Install from Marketplace (when published)
 
 ```bash
-/plugin marketplace add automaze
+/plugin marketplace add tegmentum
 /plugin install ccpm
 ```
 
@@ -285,9 +285,9 @@ These are your project files and persist after uninstall.
 
 ## Support
 
-- **Repository**: https://github.com/automazeio/ccpm
-- **Issues**: https://github.com/automazeio/ccpm/issues
-- **Documentation**: https://github.com/automazeio/ccpm#readme
+- **Repository**: https://github.com/tegmentum/ccpm
+- **Issues**: https://github.com/tegmentum/ccpm/issues
+- **Documentation**: https://github.com/tegmentum/ccpm#readme
 
 ## License
 
@@ -295,4 +295,4 @@ MIT License - See LICENSE file for details
 
 ## Credits
 
-Developed by [Automaze](https://automaze.io) for developers who ship.
+Developed by [Tegmentum](https://tegmentum.ai) for developers who ship.

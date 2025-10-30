@@ -216,8 +216,8 @@ Plugin creates default config on install if needed.
   "name": "ccpm",
   "version": "1.0.0",
   "description": "Claude Code Project Management - Spec-driven development with GitHub Issues and Git worktrees",
-  "author": "automaze.io",
-  "homepage": "https://github.com/automazeio/ccpm",
+  "author": "tegmentum.ai",
+  "homepage": "https://github.com/tegmentum/ccpm",
   "license": "MIT",
   "requires": {
     "claude-code": ">=1.0.0",
@@ -366,8 +366,8 @@ Write `.claude-plugin/plugin.json`
 /plugin install ccpm
 
 # Or from marketplace
-/plugin marketplace add automaze
-/plugin install @automaze/ccpm
+/plugin marketplace add tegmentum
+/plugin install @tegmentum/ccpm
 ```
 
 ### 2. Automatic Updates

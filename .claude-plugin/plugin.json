@@ -2,9 +2,9 @@
   "name": "ccpm",
   "version": "1.0.0",
   "description": "Claude Code Project Management - Spec-driven development with GitHub Issues, Git worktrees, and parallel AI agents",
-  "author": "automaze.io",
-  "homepage": "https://github.com/automazeio/ccpm",
-  "repository": "https://github.com/automazeio/ccpm",
+  "author": "tegmentum.ai",
+  "homepage": "https://github.com/tegmentum/ccpm",
+  "repository": "https://github.com/tegmentum/ccpm",
   "license": "MIT",
   "keywords": [
     "project-management",

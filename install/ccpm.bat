@@ -1,6 +1,6 @@
 @echo off
 
-set REPO_URL=https://github.com/automazeio/ccpm.git
+set REPO_URL=https://github.com/tegmentum/ccpm.git
 set TARGET_DIR=.
 
 echo Cloning repository from %REPO_URL%...

@@ -1,15 +1,15 @@
 # Claude Code PM
 
-[![Automaze](https://img.shields.io/badge/By-automaze.io-4b3baf)](https://automaze.io)
+[![Tegmentum](https://img.shields.io/badge/By-tegmentum.ai-4b3baf)](https://tegmentum.ai)
 &nbsp;
-[![Claude Code](https://img.shields.io/badge/+-Claude%20Code-d97757)](https://github.com/automazeio/ccpm/blob/main/README.md)
-[![GitHub Issues](https://img.shields.io/badge/+-GitHub%20Issues-1f2328)](https://github.com/automazeio/ccpm)
+[![Claude Code](https://img.shields.io/badge/+-Claude%20Code-d97757)](https://github.com/tegmentum/ccpm/blob/main/README.md)
+[![GitHub Issues](https://img.shields.io/badge/+-GitHub%20Issues-1f2328)](https://github.com/tegmentum/ccpm)
 &nbsp;
-[![MIT License](https://img.shields.io/badge/License-MIT-28a745)](https://github.com/automazeio/ccpm/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/badge/License-MIT-28a745)](https://github.com/tegmentum/ccpm/blob/main/LICENSE)
 &nbsp;
 [![Follow on 𝕏](https://img.shields.io/badge/𝕏-@aroussi-1c9bf0)](http://x.com/intent/follow?screen_name=aroussi)
 &nbsp;
-[![Star this repo](https://img.shields.io/badge/★-Star%20this%20repo-e7b10b)](https://github.com/automazeio/ccpm)
+[![Star this repo](https://img.shields.io/badge/★-Star%20this%20repo-e7b10b)](https://github.com/tegmentum/ccpm)
 
 ### Claude Code workflow to ship ~~faster~~ _better_ using spec-driven development, GitHub issues, Git worktrees, and mutiple AI agents running in parallel.
 
@@ -388,18 +388,18 @@ Teams using this system report:
 
    ```bash
    cd path/to/your/project/
-   curl -sSL https://raw.githubusercontent.com/automazeio/ccpm/main/ccpm.sh | bash
-   # or: wget -qO- https://raw.githubusercontent.com/automazeio/ccpm/main/ccpm.sh | bash
+   curl -sSL https://raw.githubusercontent.com/tegmentum/ccpm/main/ccpm.sh | bash
+   # or: wget -qO- https://raw.githubusercontent.com/tegmentum/ccpm/main/ccpm.sh | bash
    ```
 
    #### Windows (PowerShell)
    ```bash
    cd path/to/your/project/
-   iwr -useb https://raw.githubusercontent.com/automazeio/ccpm/main/ccpm.bat | iex
+   iwr -useb https://raw.githubusercontent.com/tegmentum/ccpm/main/ccpm.bat | iex
    ```
    > ⚠️ **IMPORTANT**: If you already have a `.claude` directory, clone this repository to a different directory and copy the contents of the cloned `.claude` directory to your project's `.claude` directory.
 
-   See full/other installation options in the [installation guide ›](https://github.com/automazeio/ccpm/tree/main/install)
+   See full/other installation options in the [installation guide ›](https://github.com/tegmentum/ccpm/tree/main/install)
 
 
 2. **Initialize the PM system**:
@@ -484,22 +484,22 @@ For implementation details, see `docs/investigations/router_implementation_compl
 
 ## Support This Project
 
-Claude Code PM was developed at [Automaze](https://automaze.io) **for developers who ship, by developers who ship**.
+Claude Code PM was developed at [Tegmentum](https://tegmentum.ai) **for developers who ship, by developers who ship**.
 
 If Claude Code PM helps your team ship better software:
 
-- ⭐ **[Star this repository](https://github.com/automazeio/ccpm)** to show your support
+- ⭐ **[Star this repository](https://github.com/tegmentum/ccpm)** to show your support
 - 🐦 **[Follow @aroussi on X](https://x.com/aroussi)** for updates and tips
 
 
 ---
 
 > [!TIP]
-> **Ship faster with Automaze.** We partner with founders to bring their vision to life, scale their business, and optimize for success.
-> **[Visit Automaze to book a call with me ›](https://automaze.io)**
+> **Ship faster with Tegmentum.** We partner with founders to bring their vision to life, scale their business, and optimize for success.
+> **[Visit Tegmentum to book a call with me ›](https://tegmentum.ai)**
 
 ---
 
 ## Star History
 
-![Star History Chart](https://api.star-history.com/svg?repos=automazeio/ccpm)
+![Star History Chart](https://api.star-history.com/svg?repos=tegmentum/ccpm)
