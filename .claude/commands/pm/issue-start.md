@@ -1,163 +1,72 @@
 ---
-allowed-tools: Bash, Read, Write, LS, Task
+allowed-tools: Bash, Task
 ---
 
 # Issue Start
 
-Begin work on a GitHub issue with parallel agents based on work stream analysis.
+Begin work on a GitHub issue with automated setup and agent launch instructions.
 
 ## Usage
 ```
 /pm:issue-start <issue_number>
 ```
 
-## Quick Check
-
-1. **Get issue details:**
-   ```bash
-   gh issue view $ARGUMENTS --json state,title,labels,body
-   ```
-   If it fails: "❌ Cannot access issue #$ARGUMENTS. Check number or run: gh auth login"
-
-2. **Find local task file:**
-   - First check if `.claude/epics/*/$ARGUMENTS.md` exists (new naming)
-   - If not found, search for file containing `github:.*issues/$ARGUMENTS` in frontmatter (old naming)
-   - If not found: "❌ No local task for issue #$ARGUMENTS. This issue may have been created outside the PM system."
-
-3. **Check for analysis:**
-   ```bash
-   test -f .claude/epics/*/$ARGUMENTS-analysis.md || echo "❌ No analysis found for issue #$ARGUMENTS
-   
-   Run: /pm:issue-analyze $ARGUMENTS first
-   Or: /pm:issue-start $ARGUMENTS --analyze to do both"
-   ```
-   If no analysis exists and no --analyze flag, stop execution.
-
 ## Instructions
 
-### 1. Ensure Worktree Exists
+### 1. Run Setup Script
 
-Check if epic worktree exists:
+Run the Python script to validate and set up everything:
+
 ```bash
-# Find epic name from task file
-epic_name={extracted_from_path}
-
-# Check worktree
-if ! git worktree list | grep -q "epic-$epic_name"; then
-  echo "❌ No worktree for epic. Run: /pm:epic-start $epic_name"
-  exit 1
-fi
+python3 .claude/scripts/pm/issue-start.py $ARGUMENTS
 ```
 
-### 2. Read Analysis
+The script will:
+- ✅ Validate GitHub issue exists
+- ✅ Find task in database
+- ✅ Check epic worktree exists
+- ✅ Look for analysis file
+- ✅ Create progress tracking directory
+- ✅ Update task status to in_progress
+- ✅ Assign issue on GitHub
+- ✅ Print agent launch instructions
 
-Read `.claude/epics/{epic_name}/$ARGUMENTS-analysis.md`:
-- Parse parallel streams
-- Identify which can start immediately
-- Note dependencies between streams
+### 2. Launch Agent(s)
 
-### 3. Setup Progress Tracking
+The script will print an agent prompt template. Use the Task tool to launch agent(s):
 
-Use ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+**If analysis exists (parallel work):**
+- Read the analysis file location from script output
+- Parse parallel streams from analysis
+- Launch one Task agent per stream using the template
 
-Create workspace structure:
-```bash
-mkdir -p .claude/epics/{epic_name}/updates/$ARGUMENTS
-```
+**If no analysis (single agent):**
+- Launch one Task agent using the printed template
+- Agent will work on entire task
 
-Update task file frontmatter `updated` field with current datetime.
+### 3. Example Task Launch
 
-### 4. Launch Parallel Agents
-
-For each stream that can start immediately:
-
-Create `.claude/epics/{epic_name}/updates/$ARGUMENTS/stream-{X}.md`:
-```markdown
----
-issue: $ARGUMENTS
-stream: {stream_name}
-agent: {agent_type}
-started: {current_datetime}
-status: in_progress
----
-
-# Stream {X}: {stream_name}
-
-## Scope
-{stream_description}
-
-## Files
-{file_patterns}
-
-## Progress
-- Starting implementation
-```
-
-Launch agent using Task tool:
 ```yaml
 Task:
-  description: "Issue #$ARGUMENTS Stream {X}"
-  subagent_type: "{agent_type}"
+  description: "Issue #{issue_number} implementation"
+  subagent_type: "general-purpose"
+  model: "sonnet"
   prompt: |
-    You are working on Issue #$ARGUMENTS in the epic worktree.
-    
-    Worktree location: ../epic-{epic_name}/
-    Your stream: {stream_name}
-    
-    Your scope:
-    - Files to modify: {file_patterns}
-    - Work to complete: {stream_description}
-    
-    Requirements:
-    1. Read full task from: .claude/epics/{epic_name}/{task_file}
-    2. Work ONLY in your assigned files
-    3. Commit frequently with format: "Issue #$ARGUMENTS: {specific change}"
-    4. Update progress in: .claude/epics/{epic_name}/updates/$ARGUMENTS/stream-{X}.md
-    5. Follow coordination rules in /rules/agent-coordination.md
-    
-    If you need to modify files outside your scope:
-    - Check if another stream owns them
-    - Wait if necessary
-    - Update your progress file with coordination notes
-    
-    Complete your stream's work and mark as completed when done.
+    {Use the prompt template printed by the script}
 ```
-
-### 5. GitHub Assignment
-
-```bash
-# Assign to self and mark in-progress
-gh issue edit $ARGUMENTS --add-assignee @me --add-label "in-progress"
-```
-
-### 6. Output
-
-```
-✅ Started parallel work on issue #$ARGUMENTS
-
-Epic: {epic_name}
-Worktree: ../epic-{epic_name}/
-
-Launching {count} parallel agents:
-  Stream A: {name} (Agent-1) ✓ Started
-  Stream B: {name} (Agent-2) ✓ Started
-  Stream C: {name} - Waiting (depends on A)
-
-Progress tracking:
-  .claude/epics/{epic_name}/updates/$ARGUMENTS/
-
-Monitor with: /pm:epic-status {epic_name}
-Sync updates: /pm:issue-sync $ARGUMENTS
-```
-
-## Error Handling
-
-If any step fails, report clearly:
-- "❌ {What failed}: {How to fix}"
-- Continue with what's possible
-- Never leave partial state
 
 ## Important Notes
 
-Follow `/rules/datetime.md` for timestamps.
-Keep it simple - trust that GitHub and file system work.
+- Script handles ALL validation and setup deterministically
+- Only agent launching requires LLM context
+- Script prints everything needed for agent prompts
+- Agents work in epic worktree (../epic-{epic}/directory)
+- Progress tracked in .claude/epics/{epic}/updates/{issue}/
+
+## Error Handling
+
+Script will exit with clear error messages if:
+- Issue doesn't exist on GitHub
+- No local task found for issue
+- Epic worktree doesn't exist (run: pm epic-start {epic})
+- User cancels when no analysis found
