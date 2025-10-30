@@ -134,7 +134,7 @@ Save tasks as: `.claude/epics/$ARGUMENTS/{task_number}.md`
 ### 4. Frontmatter Guidelines
 - **name**: Use a descriptive task title (without "Task:" prefix)
 - **status**: Always start with "open" for new tasks
-- **created**: Get REAL current datetime by running: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+- **created**: Use ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
 - **updated**: Use the same real datetime as created for new tasks
 - **github**: Leave placeholder text - will be updated during sync
 - **depends_on**: List task numbers that must complete before this can start (e.g., [001, 002])

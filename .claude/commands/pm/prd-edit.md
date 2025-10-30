@@ -79,7 +79,7 @@ Is the editing session complete? (yes/no)
 
 **IMPORTANT: Only after user confirms editing session is complete.**
 
-Get current datetime: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+Use ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
 
 Update PRD file:
 - Preserve frontmatter except `updated` field

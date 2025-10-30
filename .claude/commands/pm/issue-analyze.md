@@ -58,7 +58,7 @@ Analyze the issue to identify independent work that can run in parallel:
 
 ### 3. Create Analysis File
 
-Get current datetime: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+Use ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
 
 Create `.claude/epics/{epic_name}/$ARGUMENTS-analysis.md`:
 

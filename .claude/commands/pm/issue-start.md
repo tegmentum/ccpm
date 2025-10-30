@@ -58,7 +58,7 @@ Read `.claude/epics/{epic_name}/$ARGUMENTS-analysis.md`:
 
 ### 3. Setup Progress Tracking
 
-Get current datetime: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+Use ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
 
 Create workspace structure:
 ```bash

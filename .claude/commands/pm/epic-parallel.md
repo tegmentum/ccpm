@@ -192,7 +192,7 @@ Create/update execution tracking file:
 mkdir -p .claude/epics/$epic_name/execution
 cat > .claude/epics/$epic_name/execution/parallel-run-$(date +%Y%m%d-%H%M%S).md << EOF
 ---
-started: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+started: YYYY-MM-DDTHH:MM:SSZ
 epic: $epic_name
 branch: $(git branch --show-current)
 ---
@@ -205,7 +205,7 @@ $(for each stream)
 - Stream ${stream_id}: Task #${task_number} ${stream_name}
   - Agent: parallel-worker
   - Status: Running
-  - Started: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  - Started: YYYY-MM-DDTHH:MM:SSZ
 $(done)
 
 ## Monitoring

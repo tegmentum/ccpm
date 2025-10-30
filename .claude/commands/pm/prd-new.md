@@ -156,7 +156,7 @@ created: [Current ISO date/time]
 - **name**: Use the assigned kebab-case name
 - **description**: Write a concise one-line summary of what this PRD covers
 - **status**: Always start with "backlog" for new PRDs
-- **created**: Get REAL current datetime by running: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+- **created**: Use ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
   - Never use placeholder text
   - Must be actual system time in ISO 8601 format
 
