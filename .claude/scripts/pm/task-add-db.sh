@@ -107,20 +107,39 @@ if [[ -z "$epic_data" ]] || [[ "$epic_data" == "[]" ]]; then
     if [[ "$epic_name" == "backlog" ]]; then
         echo "Creating 'backlog' epic for miscellaneous tasks..."
 
-        # Check if 'backlog' PRD exists, create if not
-        prd_id=$("$QUERY_SCRIPT" "
-            SELECT id FROM ccpm.prds
-            WHERE name = 'backlog'
-                AND deleted_at IS NULL
-        " "json" | jq -r '.[0].id // "null"')
+        # Use prd-new-db.sh to create backlog PRD from template
+        prd_exists=$("$QUERY_SCRIPT" "
+            SELECT COUNT(*) as count FROM ccpm.prds
+            WHERE name = 'backlog' AND deleted_at IS NULL
+        " "json" | jq -r '.[0].count')
 
-        if [[ "$prd_id" == "null" ]]; then
-            "$QUERY_SCRIPT" "
-                INSERT INTO ccpm.prds (name, description, status, created_at)
-                VALUES ('backlog', 'Miscellaneous tasks and issues', 'active', datetime('now'))
-            " > /dev/null
-            prd_id=$("$QUERY_SCRIPT" "SELECT id FROM ccpm.prds WHERE name = 'backlog'" "json" | jq -r '.[0].id')
+        if [[ "$prd_exists" == "0" ]]; then
+            # Create backlog PRD in database from static file
+            if [[ -f "$PROJECT_ROOT/.claude/prds/backlog.md" ]]; then
+                # Extract description from PRD file
+                description=$(grep "^description:" "$PROJECT_ROOT/.claude/prds/backlog.md" | sed 's/description: //')
+
+                "$QUERY_SCRIPT" "
+                    INSERT INTO ccpm.prds (name, description, status, created_at)
+                    VALUES ('backlog', '$description', 'active', datetime('now'))
+                " > /dev/null
+
+                echo "  ✅ Created 'backlog' PRD from template"
+            else
+                # Fallback if template doesn't exist
+                "$QUERY_SCRIPT" "
+                    INSERT INTO ccpm.prds (name, description, status, created_at)
+                    VALUES ('backlog', 'Miscellaneous tasks and issues', 'active', datetime('now'))
+                " > /dev/null
+
+                echo "  ✅ Created 'backlog' PRD"
+            fi
         fi
+
+        # Get PRD ID
+        prd_id=$("$QUERY_SCRIPT" "
+            SELECT id FROM ccpm.prds WHERE name = 'backlog'
+        " "json" | jq -r '.[0].id')
 
         # Create backlog epic
         "$QUERY_SCRIPT" "
