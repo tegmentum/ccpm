@@ -1,0 +1,100 @@
+{
+  "name": "automaze-marketplace",
+  "description": "Official Automaze plugin marketplace for Claude Code",
+  "owner": {
+    "name": "Automaze",
+    "url": "https://automaze.io",
+    "email": "support@automaze.io"
+  },
+  "plugins": [
+    {
+      "name": "ccpm",
+      "displayName": "CCPM - Claude Code Project Management",
+      "source": ".",
+      "category": "productivity",
+      "featured": true,
+      "tags": [
+        "project-management",
+        "github-issues",
+        "worktrees",
+        "parallel-agents",
+        "prd",
+        "epic",
+        "agile",
+        "spec-driven"
+      ],
+      "screenshots": [
+        "docs/images/status-dashboard.png",
+        "docs/images/epic-parallel.png",
+        "docs/images/prd-workflow.png"
+      ],
+      "shortDescription": "Ship faster with spec-driven development, GitHub Issues, Git worktrees, and parallel AI agents",
+      "longDescription": "CCPM is a comprehensive project management system for Claude Code that transforms how you build software. Start with a PRD, break it into epics and tasks, sync to GitHub Issues, and execute work in parallel using multiple AI agents in isolated git worktrees. Features 39 commands, 4 specialized agents, and 63.5% token optimization.",
+      "highlights": [
+        "39 slash commands for complete PM workflow",
+        "4 specialized agents (parallel-worker, test-runner, file-analyzer, code-analyzer)",
+        "GitHub Issues integration with full sync",
+        "Git worktree management for parallel development",
+        "Spec-driven development (PRD → Epic → Tasks → Code)",
+        "63.5% token reduction through router pattern",
+        "Cross-platform (Windows, macOS, Linux)"
+      ],
+      "useCases": [
+        "Solo developers managing multiple features",
+        "Teams coordinating parallel work",
+        "AI-assisted development workflows",
+        "Spec-driven development processes",
+        "GitHub Issues-based project tracking"
+      ],
+      "requirements": {
+        "python": ">=3.7",
+        "git": ">=2.0",
+        "gh": "optional"
+      },
+      "install": {
+        "time": "~30 seconds",
+        "steps": [
+          "Checks dependencies (Python, git)",
+          "Installs PyGithub package",
+          "Creates SQLite database",
+          "Initializes schema"
+        ]
+      },
+      "documentation": {
+        "quickStart": "PLUGIN_README.md",
+        "fullGuide": "PLUGIN.md",
+        "repository": "README.md",
+        "troubleshooting": "PLUGIN.md#troubleshooting"
+      },
+      "support": {
+        "issues": "https://github.com/automazeio/ccpm/issues",
+        "discussions": "https://github.com/automazeio/ccpm/discussions",
+        "email": "support@automaze.io"
+      },
+      "changelog": {
+        "1.0.0": {
+          "date": "2025-01-15",
+          "changes": [
+            "Initial plugin release",
+            "39 slash commands",
+            "4 specialized agents",
+            "Router pattern with 63.5% token reduction",
+            "GitHub Issues integration",
+            "Git worktree management",
+            "Parallel agent execution",
+            "Complete documentation"
+          ]
+        }
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "productivity",
+      "name": "Productivity",
+      "description": "Tools to enhance development workflow and project management"
+    }
+  ],
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-15"
+}

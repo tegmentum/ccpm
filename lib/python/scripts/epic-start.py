@@ -9,7 +9,7 @@ This is a simplified version that updates epic status.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import get_epic, update_epic, print_error, print_success, print_separator
 

@@ -4,7 +4,7 @@
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import (
     get_epic, get_task, get_db, format_datetime,

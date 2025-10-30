@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import (
     get_epic, get_db, update_epic,

@@ -4,7 +4,7 @@
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / 'db'))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from helpers import get_blocked_tasks, print_header, print_info
 
