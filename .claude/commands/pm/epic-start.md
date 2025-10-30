@@ -2,7 +2,7 @@
 allowed-tools: Bash
 ---
 
-Run `bash .claude/scripts/pm/epic-start-db.sh $ARGUMENTS` using the bash tool and show me the complete output.
+Run `python3 .claude/scripts/pm/epic-start.py $ARGUMENTS` using the bash tool and show me the complete output.
 
 - DO NOT truncate.
 - DO NOT collapse.

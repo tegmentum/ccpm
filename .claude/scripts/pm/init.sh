@@ -68,7 +68,55 @@ install_package() {
 # Check for required tools
 echo "🔍 Checking dependencies..."
 
+# Check Python 3.7+
+echo "🐍 Checking Python..."
+if command -v python3 &> /dev/null; then
+  python_version=$(python3 --version 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
+  python_major=$(echo "$python_version" | cut -d. -f1)
+  python_minor=$(echo "$python_version" | cut -d. -f2)
+
+  if [[ "$python_major" -ge 3 ]] && [[ "$python_minor" -ge 7 ]]; then
+    echo "  ✅ Python $python_version installed"
+  else
+    echo "  ❌ Python 3.7+ required (found $python_version)"
+    exit 1
+  fi
+else
+  echo "  ❌ Python 3 not found"
+  echo "  Please install Python 3.7+ from https://python.org/"
+  exit 1
+fi
+
+# Check for uv tool
+echo ""
+echo "⚡ Checking uv tool..."
+if command -v uv &> /dev/null; then
+  echo "  ✅ uv installed"
+else
+  echo "  ❌ uv not found"
+  echo "  Installing uv..."
+
+  # Try downloading standalone installer
+  if curl -LsSf https://astral.sh/uv/install.sh | sh; then
+    echo "  ✅ uv installed via standalone installer"
+    # Add to PATH for current session
+    export PATH="$HOME/.cargo/bin:$PATH"
+  else
+    # Fallback to pip
+    echo "  Trying pip install..."
+    if python3 -m pip install uv; then
+      echo "  ✅ uv installed via pip"
+    else
+      echo "  ❌ Failed to install uv"
+      echo "  Please install manually: https://github.com/astral-sh/uv"
+      exit 1
+    fi
+  fi
+fi
+
 # Check gh CLI
+echo ""
+echo "🔧 Checking GitHub CLI..."
 if command -v gh &> /dev/null; then
   echo "  ✅ GitHub CLI (gh) installed"
 else
@@ -77,19 +125,6 @@ else
   echo "  Installing gh..."
   if ! install_package "gh" "gh" "gh" "gh"; then
     echo "  Please install GitHub CLI manually: https://cli.github.com/"
-    exit 1
-  fi
-fi
-
-# Check jq
-if command -v jq &> /dev/null; then
-  echo "  ✅ jq installed"
-else
-  echo "  ❌ jq not found"
-  echo ""
-  echo "  Installing jq..."
-  if ! install_package "jq" "jq" "jq" "jq"; then
-    echo "  Please install jq manually: https://jqlang.github.io/jq/"
     exit 1
   fi
 fi
@@ -107,29 +142,13 @@ else
   fi
 fi
 
-# Check duckdb
-if command -v duckdb &> /dev/null; then
-  echo "  ✅ DuckDB installed"
+# Install Python dependencies with uv
+echo ""
+echo "📦 Installing Python dependencies..."
+if uv pip install PyGithub --system 2>/dev/null || python3 -m pip install PyGithub; then
+  echo "  ✅ PyGithub installed"
 else
-  echo "  ❌ DuckDB not found"
-  echo ""
-  echo "  Installing duckdb..."
-
-  local pm=$(detect_package_manager)
-
-  if [[ "$pm" == "brew" ]]; then
-    brew install duckdb
-  elif [[ "$pm" == "apt" ]] || [[ "$pm" == "dnf" ]] || [[ "$pm" == "yum" ]]; then
-    # DuckDB requires manual install on Linux
-    echo "  Installing DuckDB from GitHub releases..."
-    wget -q https://github.com/duckdb/duckdb/releases/latest/download/duckdb_cli-linux-amd64.zip
-    unzip -q duckdb_cli-linux-amd64.zip
-    sudo mv duckdb /usr/local/bin/
-    rm duckdb_cli-linux-amd64.zip
-  else
-    echo "  Please install DuckDB manually: https://duckdb.org/docs/installation/"
-    exit 1
-  fi
+  echo "  ⚠️  Failed to install PyGithub (will try again on first use)"
 fi
 
 # Check gh auth status
@@ -180,7 +199,7 @@ if [ -d "scripts/pm" ] && [ ! "$(pwd)" = *"/.claude"* ]; then
   echo ""
   echo "📝 Copying PM scripts..."
   cp -r scripts/pm/* .claude/scripts/pm/
-  chmod +x .claude/scripts/pm/*.sh
+  chmod +x .claude/scripts/pm/*.py
   echo "  ✅ Scripts copied and made executable"
 fi
 

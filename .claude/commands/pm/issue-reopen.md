@@ -2,7 +2,7 @@
 allowed-tools: Bash
 ---
 
-Run `bash .claude/scripts/pm/issue-reopen-db.sh $ARGUMENTS` using the bash tool and show me the complete output.
+Run `python3 .claude/scripts/pm/issue-reopen.py $ARGUMENTS` using the bash tool and show me the complete output.
 
 - DO NOT truncate.
 - DO NOT collapse.

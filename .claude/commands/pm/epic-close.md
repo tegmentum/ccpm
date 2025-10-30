@@ -2,7 +2,7 @@
 allowed-tools: Bash
 ---
 
-Run `bash .claude/scripts/pm/epic-close-db.sh $ARGUMENTS` using the bash tool and show me the complete output.
+Run `python3 .claude/scripts/pm/epic-close.py $ARGUMENTS` using the bash tool and show me the complete output.
 
 - DO NOT truncate.
 - DO NOT collapse.
