@@ -480,7 +480,7 @@ def print_error(message: str):
 
 def print_warning(message: str):
     """Print warning message."""
-    logger.warning(f"   {message}")
+    logger.warning(f"WARNING:  {message}")
 
 
 def print_info(message: str):
