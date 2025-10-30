@@ -8,8 +8,10 @@ Launch brainstorming for new product requirement document.
 
 ## Usage
 ```
-/pm:prd-new <feature_name>
+/pm:prd-new
 ```
+
+Note: No feature name is required. The name will be assigned after the brainstorming session is complete.
 
 ## Required Rules
 
@@ -21,37 +23,71 @@ Launch brainstorming for new product requirement document.
 Before proceeding, complete these validation steps.
 Do not bother the user with preflight checks progress ("I'm not going to ..."). Just do them and move on.
 
-### Input Validation
-1. **Validate feature name format:**
-   - Must contain only lowercase letters, numbers, and hyphens
-   - Must start with a letter
-   - No spaces or special characters allowed
-   - If invalid, tell user: "❌ Feature name must be kebab-case (lowercase letters, numbers, hyphens only). Examples: user-auth, payment-v2, notification-system"
-
-2. **Check for existing PRD:**
-   - Check if `.claude/prds/$ARGUMENTS.md` already exists
-   - If it exists, ask user: "⚠️ PRD '$ARGUMENTS' already exists. Do you want to overwrite it? (yes/no)"
-   - Only proceed with explicit 'yes' confirmation
-   - If user says no, suggest: "Use a different name or run: /pm:prd-parse $ARGUMENTS to create an epic from the existing PRD"
-
-3. **Verify directory structure:**
+### Directory Validation
+1. **Verify directory structure:**
    - Check if `.claude/prds/` directory exists
    - If not, create it first
    - If unable to create, tell user: "❌ Cannot create PRD directory. Please manually create: .claude/prds/"
 
 ## Instructions
 
-You are a product manager creating a comprehensive Product Requirements Document (PRD) for: **$ARGUMENTS**
+You are a product manager conducting a brainstorming session to create a comprehensive Product Requirements Document (PRD).
 
-Follow this structured approach:
+### 1. Discovery & Context (Brainstorming Session)
 
-### 1. Discovery & Context
-- Ask clarifying questions about the feature/product "$ARGUMENTS"
-- Understand the problem being solved
-- Identify target users and use cases
-- Gather constraints and requirements
+**IMPORTANT: The brainstorming session is NOT complete until:**
+- You have gathered all necessary information to write a comprehensive PRD, OR
+- The user explicitly indicates they are done
 
-### 2. PRD Structure
+**Brainstorming Process:**
+1. Start by asking the user what they want to build
+2. Ask clarifying questions to understand:
+   - The problem being solved
+   - Target users and use cases
+   - Core features and capabilities
+   - Constraints and requirements
+   - Success criteria
+3. Explore edge cases and potential issues
+4. Dig deeper when answers are vague or incomplete
+5. Continue asking questions until you have comprehensive understanding
+
+**After each round of Q&A:**
+- Synthesize what you've learned
+- Identify gaps in understanding
+- Ask follow-up questions to fill those gaps
+
+**Session Completion Check:**
+After gathering information, ask the user:
+```
+Is the brainstorming session complete? (yes/no)
+```
+
+**Expected responses:**
+- "yes" - Proceed to assign name and write PRD
+- "no" - Continue brainstorming with more questions
+
+**If user says "no":**
+- Ask what areas need more exploration
+- Continue with targeted questions
+- Repeat the completion check after gathering more information
+
+### 2. Assign PRD Name
+
+**IMPORTANT: Only after user confirms brainstorming is complete.**
+
+Based on the brainstorming session:
+1. Propose a descriptive kebab-case name for the PRD
+2. Format requirements:
+   - Must contain only lowercase letters, numbers, and hyphens
+   - Must start with a letter
+   - No spaces or special characters
+   - Examples: user-auth, payment-v2, notification-system
+3. Ask user to confirm the name or suggest alternative
+4. Check if `.claude/prds/{proposed-name}.md` already exists
+5. If exists, ask: "⚠️ PRD '{name}' already exists. Choose different name or overwrite? (rename/overwrite)"
+
+### 3. PRD Structure
+
 Create a comprehensive PRD with these sections:
 
 #### Executive Summary
@@ -92,37 +128,39 @@ Create a comprehensive PRD with these sections:
 - External dependencies
 - Internal team dependencies
 
-### 3. File Format with Frontmatter
-Save the completed PRD to: `.claude/prds/$ARGUMENTS.md` with this exact structure:
+### 4. File Format with Frontmatter
+
+Save the completed PRD to: `.claude/prds/{assigned-name}.md` with this exact structure:
 
 ```markdown
 ---
-name: $ARGUMENTS
+name: {assigned-name}
 description: [Brief one-line description of the PRD]
 status: backlog
 created: [Current ISO date/time]
 ---
 
-# PRD: $ARGUMENTS
+# PRD: {assigned-name}
 
 ## Executive Summary
-[Content...]
+[Content from brainstorming...]
 
 ## Problem Statement
-[Content...]
+[Content from brainstorming...]
 
 [Continue with all sections...]
 ```
 
-### 4. Frontmatter Guidelines
-- **name**: Use the exact feature name (same as $ARGUMENTS)
+### 5. Frontmatter Guidelines
+
+- **name**: Use the assigned kebab-case name
 - **description**: Write a concise one-line summary of what this PRD covers
 - **status**: Always start with "backlog" for new PRDs
 - **created**: Get REAL current datetime by running: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
   - Never use placeholder text
   - Must be actual system time in ISO 8601 format
 
-### 5. Quality Checks
+### 6. Quality Checks
 
 Before saving the PRD, verify:
 - [ ] All sections are complete (no placeholder text)
@@ -130,13 +168,14 @@ Before saving the PRD, verify:
 - [ ] Success criteria are measurable
 - [ ] Dependencies are clearly identified
 - [ ] Out of scope items are explicitly listed
+- [ ] Content reflects the brainstorming discussion
 
-### 6. Post-Creation
+### 7. Post-Creation
 
 After successfully creating the PRD:
-1. Confirm: "✅ PRD created: .claude/prds/$ARGUMENTS.md"
+1. Confirm: "✅ PRD created: .claude/prds/{assigned-name}.md"
 2. Show brief summary of what was captured
-3. Suggest next step: "Ready to create implementation epic? Run: /pm:prd-parse $ARGUMENTS"
+3. Suggest next step: "Ready to create implementation epic? Run: /pm:prd-parse {assigned-name}"
 
 ## Error Recovery
 
@@ -145,4 +184,10 @@ If any step fails:
 - Provide specific steps to fix the issue
 - Never leave partial or corrupted files
 
-Conduct a thorough brainstorming session before writing the PRD. Ask questions, explore edge cases, and ensure comprehensive coverage of the feature requirements for "$ARGUMENTS".
+## Important Notes
+
+- **Do NOT rush the brainstorming session** - Take time to understand the requirements fully
+- **Ask follow-up questions** when answers are vague or incomplete
+- **Explore edge cases** and potential challenges
+- **Only assign name AFTER** brainstorming is complete
+- **Always confirm** with "Is the brainstorming session complete? (yes/no)" before proceeding to write the PRD
