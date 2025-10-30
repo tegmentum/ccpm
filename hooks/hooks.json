@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "on_install": {
+      "description": "Initialize CCPM database and check dependencies",
+      "script": "on_install.sh",
+      "timeout": 120000,
+      "required": true
+    }
+  }
+}
