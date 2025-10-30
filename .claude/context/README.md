@@ -42,15 +42,6 @@ Analyzes your project and creates initial context documentation. Use this when:
 - Adding context to an existing project
 - Major project restructuring
 
-### Load Context
-```bash
-/context:prime
-```
-Loads all context information for a new agent session. Use this when:
-- Starting a new development session
-- Onboarding a new team member
-- Getting up to speed on project status
-
 ### Update Context
 ```bash
 /context:update
@@ -61,11 +52,23 @@ Updates context documentation to reflect current project state. Use this:
 - When project direction changes
 - After architectural changes
 
+## How Context Works
+
+**Automatic Loading:**
+Context files are automatically loaded through references in `CLAUDE.md`. The init script creates a `CLAUDE.md` file that includes file references to:
+- Database schema (`db/SCHEMA.md`)
+- Command reference (`db/PHASE4_FINAL_SUMMARY.md`)
+- GitHub sync documentation (`db/GITHUB_SYNC.md`)
+- Any context files you create
+
+**No Manual Loading Required:**
+Unlike older approaches that required a `/context:prime` command, the current system automatically loads referenced files. Simply add file references to `CLAUDE.md` and they'll be included in every conversation.
+
 ## Context Workflow
 
 1. **Project Start**: Run `/context:create` to establish baseline documentation
-2. **Session Start**: Run `/context:prime` to load current context
-3. **Development**: Work on your project with full context awareness
+2. **Update CLAUDE.md**: Add file references to important documentation
+3. **Development**: Context is automatically loaded in every session
 4. **Session End**: Run `/context:update` to capture changes and progress
 
 ## Benefits

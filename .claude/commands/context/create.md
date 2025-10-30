@@ -135,7 +135,7 @@ Provide comprehensive summary:
   [... list all files with line counts and brief description ...]
 
 ⏰ Created: {timestamp}
-🔄 Next: Use /context:prime to load context in new sessions
+🔄 Next: Add file references to CLAUDE.md for automatic loading
 💡 Tip: Run /context:update regularly to keep context current
 ```
 
