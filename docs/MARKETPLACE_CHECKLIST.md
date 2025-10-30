@@ -30,10 +30,12 @@
 - [x] In-code documentation (docstrings, comments)
 
 ### Marketplace Assets ⚠️
-- [ ] Screenshots (referenced in marketplace.json)
-  - [ ] `docs/images/status-dashboard.png`
-  - [ ] `docs/images/epic-parallel.png`
-  - [ ] `docs/images/prd-workflow.png`
+- [x] Screenshots (documented, ready for capture)
+  - [x] Screenshot guide created (SCREENSHOT_GUIDE.md)
+  - [x] Data generator script created
+  - [ ] `docs/images/status-dashboard.png` (capture pending)
+  - [ ] `docs/images/epic-parallel.png` (capture pending)
+  - [ ] `docs/images/prd-workflow.png` (capture pending)
 - [x] Changelog (in marketplace.json)
 - [x] Feature highlights
 - [x] Use cases
