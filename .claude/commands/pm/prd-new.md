@@ -16,7 +16,7 @@ Note: No feature name is required. The name will be assigned after the brainstor
 ## Required Rules
 
 **IMPORTANT:** Before executing this command, read and follow:
-- `.claude/rules/datetime.md` - For getting real current date/time
+- Datetime handling rules: `.claude/rules/datetime.md` or `lib/docs/rules/datetime.md` - For getting real current date/time
 
 ## Preflight Checklist
 
