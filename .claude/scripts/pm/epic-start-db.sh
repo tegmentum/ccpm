@@ -187,8 +187,15 @@ echo "🌿 Branch: $(git branch --show-current)"
 echo ""
 echo "🚀 Next steps:"
 if [[ -n "$ready_tasks" ]] && [[ "$ready_tasks" != "[]" ]]; then
+    ready_count=$(echo "$ready_tasks" | jq 'length')
     first_task=$(echo "$ready_tasks" | jq -r '.[0].task_number')
-    echo "   Start first task: pm task-start $epic_name $first_task"
+
+    if [[ "$ready_count" -gt 1 ]]; then
+        echo "   Work in parallel: pm epic-parallel"
+        echo "   Or start first task: pm task-start $epic_name $first_task"
+    else
+        echo "   Start task: pm task-start $epic_name $first_task"
+    fi
 fi
 echo "   View tasks: pm epic-show $epic_name"
 echo "   Check status: pm status"
