@@ -12,11 +12,12 @@ ccpm/
 ├── .claude/
 │   ├── commands/pm/         (39 slash commands)
 │   ├── agents/              (4 agents)
-│   ├── rules/               (10 rules)
-│   ├── scripts/pm/          (35 Python scripts)
-│   ├── epics/               (user workspace)
-│   ├── prds/                (user workspace)
+│   ├── context/
+│   │   └── rules/           (10 rules)
+│   ├── scripts/          (35 Python scripts)
 │   └── context/             (context management)
+├── epics/                   (user workspace)
+├── prds/                    (user workspace)
 ├── db/
 │   ├── helpers.py           (core library)
 │   ├── schema.sql           (database schema)
@@ -37,7 +38,7 @@ ccpm-plugin/
 ├── lib/
 │   ├── python/
 │   │   ├── helpers.py       ← FROM: db/helpers.py
-│   │   └── scripts/         ← FROM: .claude/scripts/pm/
+│   │   └── scripts/         ← FROM: .claude/scripts/
 │   └── sql/
 │       └── schema.sql       ← FROM: db/schema.sql
 └── docs/
@@ -81,7 +82,7 @@ Run: `python3 $PLUGIN_DIR/lib/python/scripts/router.py status $ARGUMENTS`
 All agents are self-contained with proper tool specifications.
 
 #### 3. Python Scripts (35 files - 100% ready)
-**Source:** `.claude/scripts/pm/*.py` and `*.sh`
+**Source:** `.claude/scripts/*.py` and `*.sh`
 **Destination:** `lib/python/scripts/*.py`
 **Effort:** Copy files + update import paths
 
@@ -115,9 +116,9 @@ SQLite schema with all table definitions.
 
 ### ⚠️ Needs Adaptation (Minor Changes)
 
-#### 6. Rules (10 files - Needs conversion)
-**Source:** `.claude/rules/*.md`
-**Current issue:** Plugins don't have a "rules" concept
+#### 6. Rules (REMOVED - Not needed)
+**Previous location:** `.claude/context/rules/*.md`
+**Status:** Removed - Python scripts handle datetime automatically via db/helpers.py
 
 **Solution Options:**
 
@@ -193,8 +194,8 @@ echo "✅ CCPM initialized successfully"
 
 #### 8. Workspace Directories
 **Not migrated:**
-- `.claude/epics/` - User's epic workspaces
-- `.claude/prds/` - User's PRDs
+- `epics/` - User's epic workspaces
+- `prds/` - User's PRDs
 - `.claude/context/` - Session context
 
 These are created by the plugin on first use, not distributed with it.
@@ -265,7 +266,7 @@ from helpers import get_db
 
 **Current:**
 ```markdown
-Run: `python3 .claude/scripts/pm/router.py status $ARGUMENTS`
+Run: `python3 .claude/scripts/router.py status $ARGUMENTS`
 ```
 
 **Plugin:**
@@ -278,9 +279,9 @@ Run: `python3 $PLUGIN_DIR/lib/python/scripts/router.py status $ARGUMENTS`
 ### 4. Convert Rules to Inline Documentation
 
 Select critical rules to inline in commands:
-- `datetime.md` → Inline in time-sensitive commands
-- `github-operations.md` → Inline in GitHub sync commands
-- `worktree-operations.md` → Inline in epic-start, epic-parallel
+- `context/rules/datetime.md` → Inline in time-sensitive commands
+- `context/rules/github-operations.md` → Inline in GitHub sync commands
+- `context/rules/worktree-operations.md` → Inline in epic-start, epic-parallel
 
 Move rest to `docs/` for reference.
 
@@ -301,8 +302,8 @@ cp -r .claude/commands/pm/*.md ccpm-plugin/commands/pm/
 cp -r .claude/agents/*.md ccpm-plugin/agents/
 
 # Copy Python infrastructure
-cp -r .claude/scripts/pm/*.py ccpm-plugin/lib/python/scripts/
-cp -r .claude/scripts/pm/*.sh ccpm-plugin/lib/python/scripts/
+cp -r .claude/scripts/*.py ccpm-plugin/lib/python/scripts/
+cp -r .claude/scripts/*.sh ccpm-plugin/lib/python/scripts/
 cp db/helpers.py ccpm-plugin/lib/python/
 
 # Copy database schema
@@ -327,7 +328,7 @@ from pathlib import Path
 for cmd_file in Path('ccpm-plugin/commands/pm').glob('*.md'):
     content = cmd_file.read_text()
     content = content.replace(
-        'python3 .claude/scripts/pm/',
+        'python3 .claude/scripts/',
         'python3 $PLUGIN_DIR/lib/python/scripts/'
     )
     cmd_file.write_text(content)
@@ -386,8 +387,9 @@ Plugin files separate from user's workspace:
 ```
 my-project/
 ├── .claude/
-│   ├── epics/          ← User workspace
-│   └── prds/           ← User workspace
+│   └── context/        ← Context files
+├── epics/              ← User workspace
+├── prds/               ← User workspace
 └── src/                ← User code
 ```
 

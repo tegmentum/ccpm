@@ -24,8 +24,8 @@
 ## Documentation
 
 ### Plugin Documentation ✅
-- [x] `PLUGIN.md` - Complete user guide (300+ lines)
-- [x] `PLUGIN_README.md` - Quick start guide
+- [x] `docs/PLUGIN.md` - Complete user guide (300+ lines)
+- [x] `docs/PLUGIN_README.md` - Quick start guide
 - [x] `README.md` - Repository documentation
 - [x] In-code documentation (docstrings, comments)
 

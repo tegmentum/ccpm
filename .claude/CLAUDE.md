@@ -2,6 +2,18 @@
 
 > Think carefully and implement the most concise solution that changes as little code as possible.
 
+## Project Context
+
+@.claude/context/project-overview.md
+@.claude/context/progress.md
+@.claude/context/tech-context.md
+@.claude/context/system-patterns.md
+@.claude/context/product-context.md
+@.claude/context/project-brief.md
+@.claude/context/project-vision.md
+@.claude/context/project-style-guide.md
+@.claude/context/project-structure.md
+
 ## USE SUB-AGENTS FOR CONTEXT OPTIMIZATION
 
 ### 1. Always use the file-analyzer sub-agent when asked to read files.

@@ -25,7 +25,7 @@
 
 3. **Path Updates** ✅
    - Updated 33 command files
-   - Changed from `.claude/scripts/pm/router.py`
+   - Changed from `.claude/scripts/router.py`
    - To `$PLUGIN_DIR/lib/python/scripts/router.py`
    - All commands now plugin-aware
 
@@ -41,8 +41,8 @@
    - Portable across installations
 
 6. **Documentation** ✅
-   - `PLUGIN.md` - Complete 300+ line user guide
-   - `PLUGIN_README.md` - Quick start guide
+   - `docs/PLUGIN.md` - Complete 300+ line user guide
+   - `docs/PLUGIN_README.md` - Quick start guide
    - Installation instructions
    - Command reference (all 39 commands)
    - Agent descriptions
@@ -61,8 +61,8 @@
 - `.claude-plugin/plugin.json` - Plugin metadata
 - `hooks/on_install.sh` - Installation hook
 - `lib/sql/schema.sql` - Database schema (portable)
-- `PLUGIN.md` - Complete plugin documentation
-- `PLUGIN_README.md` - Quick start guide
+- `docs/PLUGIN.md` - Complete plugin documentation
+- `docs/PLUGIN_README.md` - Quick start guide
 - `docs/investigations/plugin_packaging_complete.md` - This document
 
 ### Modified Files (54)
@@ -93,8 +93,9 @@ ccpm-plugin/
 │   └── on_install.sh            # Installation hook
 ├── db/
 │   └── schema.sql               # Original schema (kept for compatibility)
-├── PLUGIN.md                    # Plugin documentation
-├── PLUGIN_README.md             # Quick start
+├── docs/
+│   ├── PLUGIN.md                # Plugin documentation
+│   └── PLUGIN_README.md         # Quick start
 └── README.md                    # Repository documentation
 ```
 
@@ -196,14 +197,14 @@ CCPM now works in TWO modes:
 # Clone and use directly
 git clone https://github.com/tegmentum/ccpm
 cd ccpm
-/pm:status  # Commands run from .claude/scripts/pm/
+/ccpm:status  # Commands run from .claude/scripts/
 ```
 
 ### Plugin Mode (New)
 ```bash
 # Install as plugin
 /plugin install ccpm
-/pm:status  # Commands run from $PLUGIN_DIR/lib/python/scripts/
+/ccpm:status  # Commands run from $PLUGIN_DIR/lib/python/scripts/
 ```
 
 **Both modes use the same codebase!** The router automatically detects which mode and adjusts paths accordingly.

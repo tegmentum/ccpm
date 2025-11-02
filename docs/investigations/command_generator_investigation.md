@@ -4,7 +4,7 @@
 
 ### How Slash Commands Work Now
 
-1. User types: `/pm:status`
+1. User types: `/ccpm:status`
 2. Claude Code reads: `.claude/commands/pm/status.md`
 3. File contains markdown with instructions
 4. LLM interprets instructions and executes tools
@@ -18,7 +18,7 @@
 allowed-tools: Bash
 ---
 
-Run `python3 .claude/scripts/pm/status.py` and show output.
+Run `python3 .claude/scripts/status.py` and show output.
 ```
 - Markdown file: ~100 tokens
 - LLM interpretation: ~50 tokens
@@ -36,9 +36,9 @@ Instead of slash commands expanding to markdown instructions that Claude reads, 
 # .claude/scripts/generate_command.py
 
 COMMAND_MAP = {
-    'status': 'python3 .claude/scripts/pm/status.py',
-    'next': 'python3 .claude/scripts/pm/next.py {args}',
-    'epic-show': 'python3 .claude/scripts/pm/epic-show.py {args}',
+    'status': 'python3 .claude/scripts/status.py',
+    'next': 'python3 .claude/scripts/next.py {args}',
+    'epic-show': 'python3 .claude/scripts/epic-show.py {args}',
     # ... etc
 }
 
@@ -58,10 +58,10 @@ Use Claude Code hooks to intercept slash commands before LLM sees them:
 ```bash
 # .claude/hooks/command-preprocessor.sh
 #!/bin/bash
-# Intercepts /pm:* commands and converts to direct script calls
+# Intercepts /ccpm:* commands and converts to direct script calls
 
-if [[ "$COMMAND" == /pm:* ]]; then
-    cmd_name="${COMMAND#/pm:}"
+if [[ "$COMMAND" == /ccpm:* ]]; then
+    cmd_name="${COMMAND#/ccpm:}"
     python3 .claude/scripts/generate_command.py "$cmd_name" "$ARGS"
     exit 0  # Prevent normal slash command expansion
 fi
@@ -77,7 +77,7 @@ Keep slash commands but make them ultra-minimal:
 ---
 allowed-tools: Bash
 ---
-{{GENERATED: python3 .claude/scripts/pm/status.py}}
+{{GENERATED: python3 .claude/scripts/status.py}}
 ```
 
 Generator script updates all command files to be single-line.
@@ -92,7 +92,7 @@ Create a command router script:
 ---
 allowed-tools: Bash
 ---
-Run: python3 .claude/scripts/pm/router.py status $ARGUMENTS
+Run: python3 .claude/scripts/router.py status $ARGUMENTS
 ```
 
 Router script maps command names to script paths.

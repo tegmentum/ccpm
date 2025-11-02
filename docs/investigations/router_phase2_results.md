@@ -69,26 +69,26 @@ If we apply router pattern to all 32 deterministic commands:
 All commands successfully routed and executed:
 
 ```bash
-✅ python3 .claude/scripts/pm/router.py status
+✅ python3 .claude/scripts/router.py status
    → Executed status.py, output rendered correctly
 
-✅ python3 .claude/scripts/pm/router.py next
+✅ python3 .claude/scripts/router.py next
    → Executed next.py, output rendered correctly
 
-✅ python3 .claude/scripts/pm/router.py blocked
+✅ python3 .claude/scripts/router.py blocked
    → Executed blocked.py, output rendered correctly
 
-✅ python3 .claude/scripts/pm/router.py epic-list
+✅ python3 .claude/scripts/router.py epic-list
    → Executed epic-list.py, output rendered correctly
 
-✅ python3 .claude/scripts/pm/router.py task-add
+✅ python3 .claude/scripts/router.py task-add
    → Executed task-add.py, showed usage help correctly
 ```
 
 ### Error Handling Test
 
 ```bash
-✅ python3 .claude/scripts/pm/router.py invalid-command
+✅ python3 .claude/scripts/router.py invalid-command
    → Error: Unknown command: invalid-command
    → Run 'pm help' or 'pm router.py' for available commands
 ```
@@ -104,7 +104,7 @@ Each command now uses identical minimal template:
 allowed-tools: Bash
 ---
 
-Run: `python3 .claude/scripts/pm/router.py <command-name> $ARGUMENTS`
+Run: `python3 .claude/scripts/router.py <command-name> $ARGUMENTS`
 ```
 
 **Size**: ~91 bytes (~23 tokens)

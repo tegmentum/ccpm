@@ -60,14 +60,14 @@ graph LR
 
 ```bash
 # Create a comprehensive PRD through guided brainstorming
-/pm:prd-new memory-system
+/ccpm:prd-new memory-system
 
 # Transform PRD into a technical epic with task breakdown
-/pm:prd-parse memory-system
+/ccpm:prd-parse memory-system
 
 # Push to GitHub and start parallel execution
-/pm:epic-oneshot memory-system
-/pm:issue-start 1235
+/ccpm:epic-oneshot memory-system
+/ccpm:issue-start 1235
 ```
 
 ## What Makes This Different?
@@ -78,7 +78,7 @@ graph LR
 | Serial task execution | **Parallel agents** on independent tasks |
 | "Vibe coding" from memory | **Spec-driven** with full traceability |
 | Progress hidden in branches | **Transparent audit trail** in GitHub |
-| Manual task coordination | **Intelligent prioritization** with `/pm:next` |
+| Manual task coordination | **Intelligent prioritization** with `/ccpm:task-next` |
 
 ## Why GitHub Issues?
 
@@ -137,14 +137,16 @@ No shortcuts. No assumptions. No regrets.
 │   ├── pm/            # ← Project management commands (this system)
 │   └── testing/       # Prime and execute tests (edit this)
 ├── context/           # Project-wide context files
-├── epics/             # ← PM's local workspace (place in .gitignore)
-│   └── [epic-name]/   # Epic and related tasks
-│       ├── epic.md    # Implementation plan
-│       ├── [#].md     # Individual task files
-│       └── updates/   # Work-in-progress updates
-├── prds/              # ← PM's PRD files
 ├── rules/             # Place any rule files you'd like to reference here
 └── scripts/           # Place any script files you'd like to use here
+
+epics/                 # ← PM's local workspace (place in .gitignore)
+└── [epic-name]/       # Epic and related tasks
+    ├── epic.md        # Implementation plan
+    ├── [#].md         # Individual task files
+    └── updates/       # Work-in-progress updates
+
+prds/                  # ← PM's PRD files
 ```
 
 ## Workflow Phases
@@ -152,97 +154,95 @@ No shortcuts. No assumptions. No regrets.
 ### 1. Product Planning Phase
 
 ```bash
-/pm:prd-new feature-name
+/ccpm:prd-new feature-name
 ```
 Launches comprehensive brainstorming to create a Product Requirements Document capturing vision, user stories, success criteria, and constraints.
 
-**Output:** `.claude/prds/feature-name.md`
+**Output:** `prds/feature-name.md`
 
 ### 2. Implementation Planning Phase
 
 ```bash
-/pm:prd-parse feature-name
+/ccpm:prd-parse feature-name
 ```
 Transforms PRD into a technical implementation plan with architectural decisions, technical approach, and dependency mapping.
 
-**Output:** `.claude/epics/feature-name/epic.md`
+**Output:** `epics/feature-name/epic.md`
 
 ### 3. Task Decomposition Phase
 
 ```bash
-/pm:epic-decompose feature-name
+/ccpm:epic-decompose feature-name
 ```
 Breaks epic into concrete, actionable tasks with acceptance criteria, effort estimates, and parallelization flags.
 
-**Output:** `.claude/epics/feature-name/[task].md`
+**Output:** `epics/feature-name/[task].md`
 
 ### 4. GitHub Synchronization
 
 ```bash
-/pm:epic-sync feature-name
-# Or for confident workflows:
-/pm:epic-oneshot feature-name
+/ccpm:github-sync
+# Or for confident workflows (decompose + sync):
+/ccpm:epic-oneshot feature-name
 ```
 Pushes epic and tasks to GitHub as issues with appropriate labels and relationships.
 
 ### 5. Execution Phase
 
 ```bash
-/pm:issue-start 1234  # Launch specialized agent
-/pm:issue-sync 1234   # Push progress updates
-/pm:next             # Get next priority task
+/ccpm:issue-start 1234  # Launch specialized agent
+/ccpm:github-sync       # Push progress updates
+/ccpm:task-next         # Get next priority task
 ```
 Specialized agents implement tasks while maintaining progress updates and an audit trail.
 
 ## Command Reference
 
 > [!TIP]
-> Type `/pm:help` for a concise command summary
+> Type `/ccpm:help` for a concise command summary
 
 ### Initial Setup
-- `/pm:init` - Install dependencies and configure GitHub
+- `/ccpm:init` - Install dependencies and configure GitHub
 
 ### PRD Commands
-- `/pm:prd-new` - Launch brainstorming for new product requirement
-- `/pm:prd-parse` - Convert PRD to implementation epic
-- `/pm:prd-list` - List all PRDs
-- `/pm:prd-edit` - Edit existing PRD
-- `/pm:prd-status` - Show PRD implementation status
+- `/ccpm:prd-new` - Launch brainstorming for new product requirement
+- `/ccpm:prd-parse` - Convert PRD to implementation epic
+- `/ccpm:prd-list` - List all PRDs
+- `/ccpm:prd-edit` - Edit existing PRD
+- `/ccpm:prd-status` - Show PRD implementation status
 
 ### Epic Commands
-- `/pm:epic-decompose` - Break epic into task files
-- `/pm:epic-sync` - Push epic and tasks to GitHub
-- `/pm:epic-oneshot` - Decompose and sync in one command
-- `/pm:epic-list` - List all epics
-- `/pm:epic-show` - Display epic and its tasks
-- `/pm:epic-close` - Mark epic as complete
-- `/pm:epic-edit` - Edit epic details
-- `/pm:epic-refresh` - Update epic progress from tasks
+- `/ccpm:epic-decompose` - Break epic into task files
+- `/ccpm:epic-oneshot` - Decompose and sync in one command
+- `/ccpm:epic-list` - List all epics
+- `/ccpm:epic-show` - Display epic and its tasks
+- `/ccpm:epic-close` - Mark epic as complete
+- `/ccpm:epic-edit` - Edit epic details
+- `/ccpm:epic-refresh` - Update epic progress from tasks
 
 ### Issue Commands
-- `/pm:issue-show` - Display issue and sub-issues
-- `/pm:issue-status` - Check issue status
-- `/pm:issue-start` - Begin work with specialized agent
-- `/pm:issue-sync` - Push updates to GitHub
-- `/pm:issue-close` - Mark issue as complete
-- `/pm:issue-reopen` - Reopen closed issue
-- `/pm:issue-edit` - Edit issue details
+- `/ccpm:issue-show` - Display issue and sub-issues
+- `/ccpm:issue-status` - Check issue status
+- `/ccpm:issue-start` - Begin work with specialized agent
+- `/ccpm:issue-close` - Mark issue as complete
+- `/ccpm:issue-reopen` - Reopen closed issue
+- `/ccpm:issue-edit` - Edit issue details
 
 ### Workflow Commands
-- `/pm:next` - Show next priority issue with epic context
-- `/pm:status` - Overall project dashboard
-- `/pm:standup` - Daily standup report
-- `/pm:blocked` - Show blocked tasks
-- `/pm:in-progress` - List work in progress
+- `/ccpm:task-next` - Show next priority issue with epic context
+- `/ccpm:status` - Overall project dashboard
+- `/ccpm:standup` - Daily standup report
+- `/ccpm:blocked` - Show blocked tasks
+- `/ccpm:in-progress` - List work in progress
 
 ### Sync Commands
-- `/pm:sync` - Full bidirectional sync with GitHub
-- `/pm:import` - Import existing GitHub issues
+- `/ccpm:github-sync` - Full bidirectional sync with GitHub
+- `/ccpm:import` - Import existing GitHub issues
 
 ### Maintenance Commands
-- `/pm:validate` - Check system integrity
-- `/pm:clean` - Archive completed work
-- `/pm:search` - Search across all content
+- `/ccpm:validate` - Check system integrity
+- `/ccpm:clean` - Archive completed work
+- `/ccpm:search` - Search across all content
 
 ## The Parallel Execution System
 
@@ -301,6 +301,7 @@ Your main conversation becomes the conductor, not the orchestra.
 - Issue #1234 explodes into 5 parallel agents
 - Agents coordinate through Git commits
 - Complex orchestration hidden from view
+- Work happens in `epics/` directory
 
 GitHub doesn't need to know HOW the work got done – just that it IS done.
 
@@ -308,23 +309,23 @@ GitHub doesn't need to know HOW the work got done – just that it IS done.
 
 ```bash
 # Analyze what can be parallelized
-/pm:issue-analyze 1234
+/ccpm:issue-analyze 1234
 
 # Launch the swarm
-/pm:epic-start memory-system
+/ccpm:epic-start memory-system
 
 # Watch the magic
 # 12 agents working across 3 issues
 # All in: ../epic-memory-system/
 
 # One clean merge when done
-/pm:epic-merge memory-system
+/ccpm:epic-merge memory-system
 ```
 
 ## Key Features & Benefits
 
 ### 🧠 **Context Preservation**
-Never lose project state again. Each epic maintains its own context, agents read from `.claude/context/`, and updates locally before syncing.
+Never lose project state again. Each epic maintains its own context in `epics/`, agents read from `.claude/context/`, and updates locally before syncing.
 
 ### ⚡ **Parallel Execution**
 Ship faster with multiple agents working simultaneously. Tasks marked `parallel: true` enable conflict-free concurrent development.
@@ -353,29 +354,29 @@ Teams using this system report:
 
 ```bash
 # Start a new feature
-/pm:prd-new memory-system
+/ccpm:prd-new memory-system
 
 # Review and refine the PRD...
 
 # Create implementation plan
-/pm:prd-parse memory-system
+/ccpm:prd-parse memory-system
 
 # Review the epic...
 
 # Break into tasks and push to GitHub
-/pm:epic-oneshot memory-system
+/ccpm:epic-oneshot memory-system
 # Creates issues: #1234 (epic), #1235, #1236 (tasks)
 
 # Start development on a task
-/pm:issue-start 1235
+/ccpm:issue-start 1235
 # Agent begins work, maintains local progress
 
 # Sync progress to GitHub
-/pm:issue-sync 1235
-# Updates posted as issue comments
+/ccpm:github-sync
+# Updates synced to GitHub
 
 # Check overall status
-/pm:epic-show memory-system
+/ccpm:epic-show memory-system
 ```
 
 ## Get Started Now
@@ -404,7 +405,7 @@ Teams using this system report:
 
 2. **Initialize the PM system**:
    ```bash
-   /pm:init
+   /ccpm:init
    ```
    This command will:
    - Install GitHub CLI (if needed)
@@ -417,7 +418,7 @@ Teams using this system report:
    ```bash
    /init include rules from .claude/CLAUDE.md
    ```
-   > If you already have a `CLAUDE.md` file, run: `/re-init` to update it with important rules from `.claude/CLAUDE.md`.
+   > If you already have a `CLAUDE.md` file, `/ccpm:init` will automatically detect it and merge CCPM rules while preserving your project-specific content.
 
 4. **Prime the system**:
    ```bash
@@ -429,7 +430,7 @@ Teams using this system report:
 ### Start Your First Feature
 
 ```bash
-/pm:prd-new your-feature-name
+/ccpm:prd-new your-feature-name
 ```
 
 Watch as structured planning transforms into shipped code.
@@ -438,11 +439,11 @@ Watch as structured planning transforms into shipped code.
 
 | Operation | Local | GitHub |
 |-----------|-------|--------|
-| PRD Creation | ✅ | — |
-| Implementation Planning | ✅ | — |
-| Task Breakdown | ✅ | ✅ (sync) |
-| Execution | ✅ | — |
-| Status Updates | ✅ | ✅ (sync) |
+| PRD Creation | ✅ (`prds/`) | — |
+| Implementation Planning | ✅ (`epics/`) | — |
+| Task Breakdown | ✅ (`epics/`) | ✅ (sync) |
+| Execution | ✅ (`epics/`) | — |
+| Status Updates | ✅ (`epics/`) | ✅ (sync) |
 | Final Deliverables | — | ✅ |
 
 ## Technical Notes

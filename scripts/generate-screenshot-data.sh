@@ -14,7 +14,7 @@ echo ""
 
 # Check if CCPM is initialized
 if [ ! -f ~/.claude/ccpm.db ]; then
-    echo "❌ CCPM database not found. Please run /pm:init first."
+    echo "❌ CCPM database not found. Please run /ccpm:init first."
     exit 1
 fi
 
@@ -206,17 +206,17 @@ echo ""
 echo "Now you can capture screenshots:"
 echo ""
 echo "1. Status Dashboard:"
-echo "   /pm:status"
+echo "   /ccpm:status"
 echo "   Screenshot: docs/images/status-dashboard.png"
 echo ""
 echo "2. Epic Parallel Workflow:"
-echo "   /pm:epic-show user-auth"
-echo "   /pm:epic-parallel user-auth"
+echo "   /ccpm:epic-show user-auth"
+echo "   /ccpm:epic-parallel user-auth"
 echo "   Screenshot: docs/images/epic-parallel.png"
 echo ""
 echo "3. PRD Workflow:"
-echo "   /pm:prd-show user-auth"
-echo "   /pm:prd-parse user-auth"
+echo "   /ccpm:prd-show user-auth"
+echo "   /ccpm:prd-parse user-auth"
 echo "   Screenshot: docs/images/prd-workflow.png"
 echo ""
 echo "==================================="

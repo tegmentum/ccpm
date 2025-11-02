@@ -305,22 +305,22 @@ echo "7. Documentation Validation"
 echo "----------------------------"
 
 # Check PLUGIN.md
-if [ -f "$PROJECT_ROOT/PLUGIN.md" ]; then
-    LINE_COUNT=$(wc -l < "$PROJECT_ROOT/PLUGIN.md")
+if [ -f "$PROJECT_ROOT/docs/PLUGIN.md" ]; then
+    LINE_COUNT=$(wc -l < "$PROJECT_ROOT/docs/PLUGIN.md")
     if [ "$LINE_COUNT" -gt 200 ]; then
-        print_test "PASS" "PLUGIN.md exists ($LINE_COUNT lines)"
+        print_test "PASS" "docs/PLUGIN.md exists ($LINE_COUNT lines)"
     else
-        print_test "WARN" "PLUGIN.md is short ($LINE_COUNT lines)"
+        print_test "WARN" "docs/PLUGIN.md is short ($LINE_COUNT lines)"
     fi
 else
-    print_test "FAIL" "PLUGIN.md not found"
+    print_test "FAIL" "docs/PLUGIN.md not found"
 fi
 
 # Check PLUGIN_README.md
-if [ -f "$PROJECT_ROOT/PLUGIN_README.md" ]; then
-    print_test "PASS" "PLUGIN_README.md exists"
+if [ -f "$PROJECT_ROOT/docs/PLUGIN_README.md" ]; then
+    print_test "PASS" "docs/PLUGIN_README.md exists"
 else
-    print_test "FAIL" "PLUGIN_README.md not found"
+    print_test "FAIL" "docs/PLUGIN_README.md not found"
 fi
 
 # Check LICENSE
@@ -389,7 +389,7 @@ echo "----------------------------"
 
 # Test router with a simple command
 export PLUGIN_DIR="$PROJECT_ROOT"
-if python3 "$PROJECT_ROOT/lib/python/scripts/router.py" help 2>&1 | grep -qi "claude.*code.*pm\|CCPM\|/pm:"; then
+if python3 "$PROJECT_ROOT/lib/python/scripts/router.py" help 2>&1 | grep -qi "claude.*code.*pm\|CCPM\|/ccpm:"; then
     print_test "PASS" "Router executes help command"
 else
     print_test "FAIL" "Router failed to execute help command"

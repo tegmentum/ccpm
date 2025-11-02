@@ -2,11 +2,11 @@
 
 **Date**: January 15, 2025
 **Current Version**: v1.0.0 (Plugin Release)
-**Roadmap Document**: ROADMAP.md
+**Roadmap Document**: docs/ROADMAP.md
 
 ## Executive Summary
 
-The ROADMAP.md was focused on database optimization and reducing LLM usage through deterministic operations. Several phases have been completed, but the roadmap predates the plugin conversion work. This document analyzes what remains relevant for future versions.
+The docs/ROADMAP.md was focused on database optimization and reducing LLM usage through deterministic operations. Several phases have been completed, but the roadmap predates the plugin conversion work. This document analyzes what remains relevant for future versions.
 
 ## Completed Phases
 
@@ -81,8 +81,8 @@ The ROADMAP.md was focused on database optimization and reducing LLM usage throu
 ### ⏳ Phase 6: Documentation (PARTIALLY COMPLETE)
 
 **Completed** ✅:
-- Plugin user guide (PLUGIN.md - 298 lines)
-- Quick start guide (PLUGIN_README.md)
+- Plugin user guide (docs/PLUGIN.md - 298 lines)
+- Quick start guide (docs/PLUGIN_README.md)
 - Installation test report
 - Screenshot guide
 - Marketplace checklist
@@ -296,7 +296,7 @@ From original roadmap:
 - Automated installation
 - Marketplace-ready packaging
 
-**Recommendation**: Consider the original ROADMAP.md "substantially complete" and create new roadmaps for v1.1+ features based on:
+**Recommendation**: Consider the original docs/ROADMAP.md "substantially complete" and create new roadmaps for v1.1+ features based on:
 1. User feedback after v1.0.0 adoption
 2. Performance bottlenecks discovered in production
 3. Feature requests from the community

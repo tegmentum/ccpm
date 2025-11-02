@@ -55,7 +55,7 @@ Success: 99.9% login success rate, <500ms response time
 - `pm prd-status` - Show implementation status
 
 **Storage:**
-- File: `.claude/prds/{name}.md` (version-controlled markdown)
+- File: `prds/{name}.md` (version-controlled markdown)
 - Database: Metadata (name, description, status)
 
 ---
@@ -102,7 +102,6 @@ Tasks: 10 tasks (database schema, API endpoints, UI, tests...)
 - `pm prd-parse <prd-name>` - Create epic from PRD
 - `pm epic-decompose <name>` - Break into tasks (AI or manual)
 - `pm epic-show <name>` - View epic and tasks
-- `pm epic-sync <name>` - Sync to GitHub
 - `pm epic-start <name>` - Setup worktree for work
 - `pm epic-parallel` - Launch parallel agents
 - `pm epic-close <name>` - Mark complete
@@ -181,7 +180,7 @@ The GitHub representation of an epic or task, used for external visibility and c
 - Link to pull requests
 
 **Created by:**
-- `epic-sync` - Creates epic issue + task sub-issues
+- `github-sync` - Syncs epics and tasks to GitHub
 - `task-add --sync` - Creates issue immediately
 - `import` - Imports existing GitHub issues
 
@@ -202,11 +201,9 @@ Tasks:
 ```
 
 **Commands:**
-- `pm epic-sync <name>` - Sync epic + tasks to GitHub
+- `pm github-sync` - Full sync all epics and tasks to GitHub
 - `pm issue-show <num>` - View issue from database
 - `pm issue-close <num>` - Close in DB + GitHub
-- `pm issue-sync <num>` - Bidirectional sync
-- `pm sync` - Full sync all issues
 - `pm import` - Import GitHub issues to DB
 
 **Storage:**
@@ -242,7 +239,7 @@ Tasks:
 pm task-add 'Fix validation bug'  # No epic specified
 ```
 
-**Has a static PRD** in `.claude/prds/backlog.md` (no brainstorming needed).
+**Has a static PRD** in `prds/backlog.md` (no brainstorming needed).
 
 **Benefits:**
 - No ceremony for quick tasks
@@ -261,7 +258,7 @@ pm task-add 'Fix validation bug'  # No epic specified
 # 1. Product brainstorming
 pm prd-new
 # Interactive session, assigns name after brainstorming
-# Result: .claude/prds/user-auth.md
+# Result: prds/user-auth.md
 
 # 2. Technical planning
 pm prd-parse user-auth
@@ -272,7 +269,7 @@ pm epic-decompose user-auth
 # Result: 10 tasks with dependencies
 
 # 4. Sync to GitHub
-pm epic-sync user-auth
+pm github-sync
 # Result: Epic issue + task sub-issues on GitHub
 
 # 5. Start work
@@ -352,7 +349,7 @@ pm import --label bug
 ### What's in Files
 
 **PRDs only:**
-- `.claude/prds/{name}.md` - Full markdown document
+- `prds/{name}.md` - Full markdown document
 - Version-controlled, human-editable
 - Can reference in PRs and docs
 
@@ -486,7 +483,7 @@ PRD
 Epic
   ↓ pm epic-decompose (break down)
 Tasks
-  ↓ pm epic-sync (publish)
+  ↓ pm github-sync (publish)
 GitHub Issues
   ↓ pm epic-start (setup)
 Worktree

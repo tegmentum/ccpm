@@ -99,7 +99,7 @@ All converted commands now use this minimal template:
 allowed-tools: Bash
 ---
 
-Run: `python3 .claude/scripts/pm/router.py <command-name> $ARGUMENTS`
+Run: `python3 .claude/scripts/router.py <command-name> $ARGUMENTS`
 ```
 
 **File size**: ~93 bytes (~23 tokens)
@@ -122,9 +122,9 @@ BASH_COMMANDS = {
 
 ### Routing Logic
 
-1. User invokes: `/pm:command-name arg1 arg2`
+1. User invokes: `/ccpm:command-name arg1 arg2`
 2. Claude reads minimal template from `.claude/commands/pm/command-name.md`
-3. Template tells Claude to run: `python3 .claude/scripts/pm/router.py command-name arg1 arg2`
+3. Template tells Claude to run: `python3 .claude/scripts/router.py command-name arg1 arg2`
 4. Router validates command exists in COMMAND_MAP
 5. Router executes corresponding Python script with arguments
 6. Output returned directly to user
@@ -132,7 +132,7 @@ BASH_COMMANDS = {
 ### Error Handling
 
 ```bash
-$ python3 .claude/scripts/pm/router.py invalid-command
+$ python3 .claude/scripts/router.py invalid-command
 Error: Unknown command: invalid-command
 
 Run 'pm help' or 'pm router.py' for available commands
@@ -171,8 +171,8 @@ Router pattern enables:
 ## Files Changed
 
 ### Created
-- `.claude/scripts/pm/router.py` (143 lines)
-- `.claude/scripts/pm/generate_command_templates.py` (88 lines)
+- `.claude/scripts/router.py` (143 lines)
+- `.claude/scripts/generate_command_templates.py` (88 lines)
 - `docs/investigations/router_analysis.md`
 - `docs/investigations/router_phase2_results.md`
 - `docs/investigations/router_implementation_complete.md`

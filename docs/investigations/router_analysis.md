@@ -15,7 +15,7 @@
 allowed-tools: Bash
 ---
 
-Run: `python3 .claude/scripts/pm/router.py $COMMAND_NAME $ARGUMENTS`
+Run: `python3 .claude/scripts/router.py $COMMAND_NAME $ARGUMENTS`
 ```
 - Size: **98 bytes** (~25 tokens)
 - **Savings per command: 147 bytes** (~36 tokens)
@@ -132,7 +132,7 @@ C. Use path inspection in router
 
 **Recommendation:** Use solution B (explicit):
 ```markdown
-Run: `python3 .claude/scripts/pm/router.py status $ARGUMENTS`
+Run: `python3 .claude/scripts/router.py status $ARGUMENTS`
 ```
 
 ### Issue 2: Special Commands
@@ -174,11 +174,11 @@ Could go further with ultra-minimal:
 ---
 allowed-tools: Bash
 ---
-/pm:router status $ARGUMENTS
+/ccpm:router status $ARGUMENTS
 ```
 
 If Claude Code supports calling other slash commands, could create:
-- One `/pm:router` command
+- One `/ccpm:router` command
 - All other commands become aliases
 
 This would eliminate even the router invocation line, saving another ~10 tokens/command.

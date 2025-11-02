@@ -6,7 +6,7 @@ This document describes the three screenshots needed for the marketplace listing
 
 ### 1. Status Dashboard (`docs/images/status-dashboard.png`)
 
-**Command**: `/pm:status`
+**Command**: `/ccpm:status`
 
 **Purpose**: Show the comprehensive project overview that CCPM provides
 
@@ -21,14 +21,14 @@ This document describes the three screenshots needed for the marketplace listing
 **Setup before capture**:
 ```bash
 # Create sample data
-/pm:prd-new
+/ccpm:prd-new
 # Enter a PRD with title "User Authentication System"
-/pm:prd-parse user-auth
-/pm:epic-decompose user-auth
-/pm:epic-sync user-auth
+/ccpm:prd-parse user-auth
+/ccpm:epic-decompose user-auth
+/ccpm:github-sync
 
 # Run status command
-/pm:status
+/ccpm:status
 ```
 
 **Expected output elements**:
@@ -41,7 +41,7 @@ This document describes the three screenshots needed for the marketplace listing
 
 ### 2. Epic Parallel Workflow (`docs/images/epic-parallel.png`)
 
-**Command**: `/pm:epic-parallel user-auth`
+**Command**: `/ccpm:epic-parallel user-auth`
 
 **Purpose**: Demonstrate parallel AI agent execution across git worktrees
 
@@ -56,11 +56,11 @@ This document describes the three screenshots needed for the marketplace listing
 **Setup before capture**:
 ```bash
 # Ensure you have an epic with multiple tasks
-/pm:epic-start user-auth
-/pm:epic-decompose user-auth  # Should have 3-5 tasks
+/ccpm:epic-start user-auth
+/ccpm:epic-decompose user-auth  # Should have 3-5 tasks
 
 # Launch parallel execution
-/pm:epic-parallel user-auth
+/ccpm:epic-parallel user-auth
 ```
 
 **Expected output elements**:
@@ -73,7 +73,7 @@ This document describes the three screenshots needed for the marketplace listing
 
 ### 3. PRD Workflow (`docs/images/prd-workflow.png`)
 
-**Command**: `/pm:prd-new` (showing interactive brainstorming)
+**Command**: `/ccpm:prd-new` (showing interactive brainstorming)
 
 **Purpose**: Showcase spec-driven development from concept to execution
 
@@ -87,14 +87,14 @@ This document describes the three screenshots needed for the marketplace listing
 **Setup before capture**:
 ```bash
 # Start PRD creation
-/pm:prd-new
+/ccpm:prd-new
 
 # When prompted, enter:
 # Feature: "Real-time collaboration system"
 # Description: "WebSocket-based collaborative editing with presence indicators"
 
 # Then show the parsing
-/pm:prd-parse realtime-collab
+/ccpm:prd-parse realtime-collab
 ```
 
 **Expected output elements**:

@@ -87,8 +87,8 @@
 
 | Test | Status | Details |
 |------|--------|---------|
-| PLUGIN.md | ✅ PASS | 298 lines of user documentation |
-| PLUGIN_README.md | ✅ PASS | Quick start guide present |
+| docs/PLUGIN.md | ✅ PASS | 298 lines of user documentation |
+| docs/PLUGIN_README.md | ✅ PASS | Quick start guide present |
 | LICENSE | ✅ PASS | MIT license present |
 
 **Result**: Complete documentation package ready.
@@ -125,11 +125,11 @@
 ### Command Files Tested
 All 39 command files validated:
 - PRD commands (5): prd-new, prd-parse, prd-list, prd-edit, prd-status
-- Epic commands (11): epic-decompose, epic-sync, epic-oneshot, epic-list, epic-show, epic-status, epic-close, epic-edit, epic-refresh, epic-start, epic-parallel
+- Epic commands (10): epic-decompose, epic-oneshot, epic-list, epic-show, epic-status, epic-close, epic-edit, epic-refresh, epic-start, epic-parallel
 - Task commands (4): task-add, task-start, task-close, task-show
-- Issue commands (8): issue-show, issue-status, issue-start, issue-sync, issue-close, issue-reopen, issue-edit, issue-analyze
+- Issue commands (7): issue-show, issue-status, issue-start, issue-close, issue-reopen, issue-edit, issue-analyze
 - Workflow commands (5): next, status, standup, blocked, in-progress
-- Sync commands (2): sync, import
+- Sync commands (2): github-sync, import
 - Maintenance commands (3): validate, clean, search
 - Setup commands (2): init, help
 
@@ -163,7 +163,7 @@ The on_install.sh script correctly:
 ### Dual-Mode Path Resolution
 Tested both modes:
 - **Plugin mode**: Detects `$PLUGIN_DIR`, uses `lib/python/` paths ✅
-- **Repository mode**: Falls back to `.claude/scripts/pm/` paths ✅
+- **Repository mode**: Falls back to `.claude/scripts/` paths ✅
 
 ## Performance Characteristics
 

@@ -30,9 +30,9 @@ CCPM has been successfully transformed into a production-ready Claude Code plugi
 
 ### 3. Documentation ✅
 Created comprehensive documentation:
-- **PLUGIN.md** (298 lines) - Complete user guide
-- **PLUGIN_README.md** - Quick start guide
-- **RELEASE_NOTES_v1.0.0.md** (338 lines) - Full release documentation
+- **docs/PLUGIN.md** (298 lines) - Complete user guide
+- **docs/PLUGIN_README.md** - Quick start guide
+- **docs/RELEASE_NOTES_v1.0.0.md** (338 lines) - Full release documentation
 - **SCREENSHOT_GUIDE.md** (265 lines) - Asset creation guide
 - **INSTALLATION_TEST_REPORT.md** (285 lines) - Test validation results
 - **MARKETPLACE_CHECKLIST.md** (214 lines) - Submission checklist
@@ -111,8 +111,8 @@ Installation hook (on_install.sh) handles:
 - Dual-mode path resolution confirmed ✅
 
 ### Documentation ✅
-- PLUGIN.md (298 lines) ✅
-- PLUGIN_README.md ✅
+- docs/PLUGIN.md (298 lines) ✅
+- docs/PLUGIN_README.md ✅
 - LICENSE ✅
 - All support documentation ✅
 
@@ -193,7 +193,7 @@ Installation hook (on_install.sh) handles:
 
 ### As Plugin (Recommended)
 1. Install: `/plugin install /path/to/ccpm`
-2. Use commands: `/pm:status`, `/pm:prd-new`, etc.
+2. Use commands: `/ccpm:status`, `/ccpm:prd-new`, etc.
 3. Commands detected via `$PLUGIN_DIR`
 
 ### As Repository (Backward Compatible)
@@ -204,9 +204,9 @@ Installation hook (on_install.sh) handles:
 ## Support Resources
 
 ### Documentation
-- Quick Start: `PLUGIN_README.md`
-- Full Guide: `PLUGIN.md`
-- In-App: `/pm:help`
+- Quick Start: `docs/PLUGIN_README.md`
+- Full Guide: `docs/PLUGIN.md`
+- In-App: `/ccpm:help`
 
 ### Testing
 - Installation Test: `scripts/test-plugin-install.sh`
