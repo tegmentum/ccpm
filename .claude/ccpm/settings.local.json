@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash .claude/ccpm/scripts/test-and-log.sh:*)",
+      "Bash(.claude/ccpm/scripts/test-and-log.sh:*)",
+      "Bash(bash .claude/ccpm/scripts/*)",
+      "Bash(.claude/ccpm/scripts/*)",
+      "Bash(bash .claude/ccpm/lib/python/scripts/*)",
+      "Bash(.claude/ccpm/lib/python/scripts/*)",
+
+      "Bash(cat *)",
+      "Bash(cat:*)",
+      "Bash(composer *)",
+      "Bash(fi)",
+      "Bash(find *)",
+      "Bash(gh *)",
+      "Bash(git *)",
+      "Bash(grep *)",
+      "Bash(kill:*)",
+      "Bash(ln:*)",
+      "Bash(ls *)",
+      "Bash(mv *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(pnpm *)",
+      "Bash(pytest *)",
+      "Bash(python *)",
+      "Bash(rm *)",
+      "Bash(ruff check *)",
+      "Bash(ruff check:*)",
+      "Bash(sed *)",
+      "Bash(sed:*)",
+      "Bash(then)",
+      "Bash(touch *)",
+      "Bash(tree *)",
+      "List(**)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
+    ]
+  }
+}
