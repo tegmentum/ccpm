@@ -48,26 +48,16 @@ fi
 # Create workspace directories
 mkdir -p prds epics
 
-echo "🔗 Integrating with existing configuration..."
-# Run integration script
-bash .claude/ccpm/scripts/integrate.sh
-
-# Verify integration completed
-if [ ! -f ".claude/CLAUDE.md" ]; then
-    echo "⚠️  Warning: .claude/CLAUDE.md was not created by integration"
-    echo "You may need to manually reference .claude/ccpm/CLAUDE.md in your project configuration"
-fi
-
 echo ""
 echo "✅ CCPM installed successfully!"
 echo ""
 echo "📁 Installed files:"
 echo "  • Plugin: .claude/ccpm/"
-echo "  • Configuration: .claude/CLAUDE.md"
 echo "  • Workspaces: prds/ and epics/"
 echo ""
 echo "📋 Next steps:"
 echo "  1. Run initialization: /ccpm:init"
+echo "     (This will create CLAUDE.md and integrate settings)"
 echo "  2. Create your first PRD: /ccpm:prd-new"
 echo "  3. Get help: /ccpm:help"
 echo ""

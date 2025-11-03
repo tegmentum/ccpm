@@ -228,56 +228,14 @@ else
   echo "  Initialize with: git init"
 fi
 
-# Create CLAUDE.md if it doesn't exist
-if [ ! -f "CLAUDE.md" ]; then
-  echo ""
-  echo "📄 Creating CLAUDE.md..."
-  cat > CLAUDE.md << 'EOF'
-# CLAUDE.md
-
-> Think carefully and implement the most concise solution that changes as little code as possible.
-
-## Project Management Context
-
-This project uses the CCPM (Claude Code Project Management) framework for structured development.
-
-**Key Documentation:**
-- Database Schema: `db/SCHEMA.md` - Complete database structure and relationships
-- Command Reference: `db/PHASE4_FINAL_SUMMARY.md` - All available PM commands
-- GitHub Sync: `db/GITHUB_SYNC.md` - Bidirectional issue synchronization
-
-**Common Commands:**
-- `pm standup` - Daily status report
-- `pm next` - Show ready-to-start tasks
-- `pm epic-show <epic>` - View epic details
-- `pm task-start <epic> <task>` - Start working on a task
-- `pm task-close <epic> <task>` - Complete a task
-
-**Database Query Tool:**
-```bash
-pm db-query "SELECT * FROM ccpm.tasks WHERE status='open'"
-pm db-query  # Interactive mode
-```
-
-**Available Views:**
-- `ccpm.ready_tasks` - Tasks ready to start (no unmet dependencies)
-- `ccpm.blocked_tasks` - Tasks waiting on dependencies
-- `ccpm.epic_progress` - Epic completion statistics
-
-## Project-Specific Instructions
-
-Add your project-specific instructions here.
-
-## Testing
-
-Always run tests before committing:
-- `npm test` or equivalent for your stack
-
-## Code Style
-
-Follow existing patterns in the codebase.
-EOF
-  echo "  ✅ CLAUDE.md created with CCPM context"
+# Integrate CCPM configuration files
+echo ""
+echo "🔧 Integrating CCPM configuration..."
+if [ -f ".claude/ccpm/scripts/integrate.sh" ]; then
+  bash .claude/ccpm/scripts/integrate.sh
+else
+  echo "  ⚠️  Integration script not found (.claude/ccpm/scripts/integrate.sh)"
+  echo "  CLAUDE.md and settings may not be configured properly"
 fi
 
 # Summary
