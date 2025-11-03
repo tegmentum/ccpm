@@ -8,20 +8,6 @@ set DOWNLOAD_URL=https://github.com/%REPO%/archive/refs/heads/%BRANCH%.zip
 echo Installing Claude Code PM...
 echo.
 
-REM Check if .claude directory already exists
-if exist ".claude" (
-    echo Error: .claude directory already exists in this project
-    echo.
-    echo This project may already have CCPM or another Claude Code configuration.
-    echo To avoid conflicts, CCPM will not overwrite existing .claude directories.
-    echo.
-    echo Options:
-    echo   1. Remove .claude directory: rmdir /s /q .claude
-    echo   2. Install in a new project directory
-    echo.
-    exit /b 1
-)
-
 REM Create temp directory
 set TEMP_DIR=%TEMP%\ccpm-%RANDOM%
 mkdir "%TEMP_DIR%"
@@ -32,7 +18,7 @@ curl -sL "%DOWNLOAD_URL%" -o "%TEMP_DIR%\ccpm.zip"
 echo Extracting files...
 powershell -Command "Expand-Archive -Path '%TEMP_DIR%\ccpm.zip' -DestinationPath '%TEMP_DIR%' -Force"
 
-REM Move .claude directory to current directory
+REM Locate extracted directory
 set EXTRACTED_DIR=%TEMP_DIR%\ccpm-%BRANCH%
 if not exist "%EXTRACTED_DIR%\.claude" (
     echo Error: Downloaded archive doesn't contain .claude directory
@@ -41,11 +27,23 @@ if not exist "%EXTRACTED_DIR%\.claude" (
 )
 
 echo Installing CCPM files...
-move "%EXTRACTED_DIR%\.claude" .
+REM Create .claude directory if it doesn't exist
+if not exist ".claude" mkdir .claude
+
+REM Copy CCPM plugin files into .claude (overlay method)
+xcopy "%EXTRACTED_DIR%\.claude\*" ".claude\" /E /I /Y /Q
 
 REM Create workspace directories
 if not exist "prds" mkdir prds
 if not exist "epics" mkdir epics
+
+echo Integrating with existing configuration...
+REM Run integration script if it exists
+if exist ".claude\ccpm\scripts\integrate.sh" (
+    bash .claude\ccpm\scripts\integrate.sh
+) else (
+    echo Warning: Integration script not found, skipping configuration merge
+)
 
 REM Cleanup
 rmdir /s /q "%TEMP_DIR%"

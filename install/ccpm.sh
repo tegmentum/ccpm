@@ -3,36 +3,22 @@ set -e
 
 REPO="tegmentum/ccpm"
 BRANCH="main"
-DOWNLOAD_URL="https://github.com/$REPO/archive/refs/heads/$BRANCH.tar.gz"
+DOWNLOAD_URL="https://github.com/$REPO/archive/refs/heads/$BRANCH.zip"
 
 echo "🚀 Installing Claude Code PM..."
 echo ""
-
-# Check if .claude directory already exists
-if [ -d ".claude" ]; then
-    echo "❌ Error: .claude directory already exists in this project"
-    echo ""
-    echo "This project may already have CCPM or another Claude Code configuration."
-    echo "To avoid conflicts, CCPM will not overwrite existing .claude directories."
-    echo ""
-    echo "Options:"
-    echo "  1. Remove .claude directory: rm -rf .claude"
-    echo "  2. Install in a new project directory"
-    echo ""
-    exit 1
-fi
 
 # Create temp directory
 TEMP_DIR=$(mktemp -d)
 trap "rm -rf $TEMP_DIR" EXIT
 
 echo "📦 Downloading CCPM snapshot..."
-curl -sL "$DOWNLOAD_URL" -o "$TEMP_DIR/ccpm.tar.gz"
+curl -sL "$DOWNLOAD_URL" -o "$TEMP_DIR/ccpm.zip"
 
 echo "📂 Extracting files..."
-tar -xzf "$TEMP_DIR/ccpm.tar.gz" -C "$TEMP_DIR"
+unzip -q "$TEMP_DIR/ccpm.zip" -d "$TEMP_DIR"
 
-# Move .claude directory to current directory
+# Locate extracted directory
 EXTRACTED_DIR="$TEMP_DIR/ccpm-$BRANCH"
 if [ ! -d "$EXTRACTED_DIR/.claude" ]; then
     echo "❌ Error: Downloaded archive doesn't contain .claude directory"
@@ -40,10 +26,22 @@ if [ ! -d "$EXTRACTED_DIR/.claude" ]; then
 fi
 
 echo "📁 Installing CCPM files..."
-mv "$EXTRACTED_DIR/.claude" .
+# Create .claude directory if it doesn't exist
+mkdir -p .claude
+
+# Copy CCPM plugin files into .claude (overlay method)
+cp -r "$EXTRACTED_DIR/.claude/"* .claude/
 
 # Create workspace directories
 mkdir -p prds epics
+
+echo "🔗 Integrating with existing configuration..."
+# Run integration script if it exists
+if [ -f ".claude/ccpm/scripts/integrate.sh" ]; then
+    bash .claude/ccpm/scripts/integrate.sh
+else
+    echo "⚠️  Warning: Integration script not found, skipping configuration merge"
+fi
 
 echo ""
 echo "✅ CCPM installed successfully!"
