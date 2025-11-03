@@ -33,16 +33,33 @@ if not exist ".claude" mkdir .claude
 REM Copy CCPM plugin files into .claude (overlay method)
 xcopy "%EXTRACTED_DIR%\.claude\*" ".claude\" /E /I /Y /Q
 
+REM Verify critical files were copied
+if not exist ".claude\ccpm\CLAUDE.md" (
+    echo Error: CLAUDE.md not found after installation
+    echo Expected at: .claude\ccpm\CLAUDE.md
+    rmdir /s /q "%TEMP_DIR%"
+    exit /b 1
+)
+
+if not exist ".claude\ccpm\scripts\integrate.sh" (
+    echo Error: Integration script not found after installation
+    echo Expected at: .claude\ccpm\scripts\integrate.sh
+    rmdir /s /q "%TEMP_DIR%"
+    exit /b 1
+)
+
 REM Create workspace directories
 if not exist "prds" mkdir prds
 if not exist "epics" mkdir epics
 
 echo Integrating with existing configuration...
-REM Run integration script if it exists
-if exist ".claude\ccpm\scripts\integrate.sh" (
-    bash .claude\ccpm\scripts\integrate.sh
-) else (
-    echo Warning: Integration script not found, skipping configuration merge
+REM Run integration script
+bash .claude\ccpm\scripts\integrate.sh
+
+REM Verify integration completed
+if not exist ".claude\CLAUDE.md" (
+    echo Warning: .claude\CLAUDE.md was not created by integration
+    echo You may need to manually reference .claude\ccpm\CLAUDE.md in your project configuration
 )
 
 REM Cleanup
@@ -50,6 +67,11 @@ rmdir /s /q "%TEMP_DIR%"
 
 echo.
 echo CCPM installed successfully!
+echo.
+echo Installed files:
+echo   - Plugin: .claude\ccpm\
+echo   - Configuration: .claude\CLAUDE.md
+echo   - Workspaces: prds\ and epics\
 echo.
 echo Next steps:
 echo   1. Run initialization: /ccpm:init
